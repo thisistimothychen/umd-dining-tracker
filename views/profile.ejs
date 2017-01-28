@@ -43,14 +43,51 @@
             </div>
           </div>
 
-          <!-- File Button -->
+          <!-- Select Basic -->
           <div class="form-group">
-            <label class="col-md-4 control-label">Resume</label>
+            <label class="col-md-4 control-label" for="gender">Gender</label>
             <div class="col-md-4">
-              <input id="resume" name="resume" class="input-file" type="file" style="margin-top: 0.5em;">
-              <span class="help-block">(Optional) By uploading your resume, you are giving permission for the UMD CS Department to send your resume to companies. Size limit: 16MB.</span>
+              <select id="gender" name="gender" class="form-control">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
             </div>
           </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="age">Age</label>
+            <div class="col-md-4">
+            <input id="age" name="age" type="text" placeholder="" class="form-control input-md">
+            </div>
+          </div>
+
+          <!-- Appended Input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="appendedtext">Weight</label>
+            <div class="col-md-4">
+              <div class="input-group">
+                <input id="appendedtext" name="appendedtext" class="form-control" placeholder="" type="text">
+                <span class="input-group-addon">pounds</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Appended Input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="height">Height</label>
+            <div class="col-md-4">
+              <div class="input-group">
+                <input id="height" name="height" class="form-control" placeholder="" type="text">
+                <span class="input-group-addon">inches</span>
+              </div>
+
+            </div>
+          </div>
+
+
 
           <!-- Button -->
           <div class="form-group">
