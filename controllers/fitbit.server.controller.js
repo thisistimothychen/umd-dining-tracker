@@ -4,12 +4,13 @@ let	path = require('path'),
 	q = require('q'),
 	fitbitService = require(path.resolve('./services/fitbit.server.service.js'))();
 
-module.exports.overarchingFunctionNameToCallFromAppJs = function(req, res) {
+module.exports.callFitbitAPI = function(req, res, params) {
+	console.log("Hello World")
 	console.log(req.body);
 
-	fitibtService.functionName()
+	fitbitService.functionName()
 	.then(function(result) {
-		res.render('index.ejs');
+		res.render('fitbitTest.ejs', params);
 	}, function(err) {
 		res.status(400).json(err);
 	});

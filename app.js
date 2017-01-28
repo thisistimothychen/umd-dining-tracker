@@ -210,7 +210,8 @@ app.post('/profile', function(req, res) {
 
 app.get('/fitbitTest', function(req, res) {
   checkPermissionsWithCallback(req, res, function(params) {
-    res.render('fitbitTest.ejs', params);
+    fitbitController.callFitbitAPI(req, res, params);
+    
   }, true);
 });
 
