@@ -59,16 +59,16 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="age">Age</label>
             <div class="col-md-4">
-            <input id="age" name="age" type="text" placeholder="" class="form-control input-md">
+            <input id="age" name="age" type="text" placeholder="" class="form-control input-md" value="<%= (user && user.age) ? user.age : '' %>" >
             </div>
           </div>
 
           <!-- Appended Input-->
           <div class="form-group">
-            <label class="col-md-4 control-label" for="appendedtext">Weight</label>
+            <label class="col-md-4 control-label" for="weight">Weight</label>
             <div class="col-md-4">
               <div class="input-group">
-                <input id="appendedtext" name="appendedtext" class="form-control" placeholder="" type="text">
+                <input id="weight" name="weight" class="form-control" placeholder="" type="text" value="<%= (user && user.weight) ? user.weight : '' %>" >
                 <span class="input-group-addon">pounds</span>
               </div>
 
@@ -80,7 +80,7 @@
             <label class="col-md-4 control-label" for="height">Height</label>
             <div class="col-md-4">
               <div class="input-group">
-                <input id="height" name="height" class="form-control" placeholder="" type="text">
+                <input id="height" name="height" class="form-control" placeholder="" type="text" value="<%= (user && user.height) ? user.height : '' %>" >
                 <span class="input-group-addon">inches</span>
               </div>
 
