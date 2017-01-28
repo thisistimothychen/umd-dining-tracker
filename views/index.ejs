@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% var username = username; var user = user; var allEvents = allEvents %>
+	<% include ./partials/head %>
+</head>
+<body class="container">
+
+	<header>
+		<% include ./partials/flash %>
+		<% include ./partials/header %>
+	</header>
+
+	<main>
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="jumbotron">
+					<h1>Upcoming CS Events</h1>
+
+					<section id="list-view">
+
+							<% for(var i=0; i < allEvents.length; i++) { %>
+
+								<!-- Individual event div -->
+								<article id="event-<%= allEvents[i]._id %>">
+
+									<!-- Event Name -->
+									<h3><a href="/event/<%= allEvents[i]._id %>"><%= allEvents[i].name %></a></h3>
+
+									<p>
+
+										<!-- Start/end date and time -->
+										<% if (allEvents[i].endTime == null) { %>
+											<!-- No end date specified -->
+											<%= getDateTimePrettyFormat(allEvents[i].startTime) %>
+										<% } else if (getDateTimeStr(allEvents[i].startTime).substr(0,10) == getDateTimeStr(allEvents[i].endTime).substr(0,10)) { %>
+											<!-- Same start/end dates -->
+											<%= getDateTimePrettyFormat(allEvents[i].startTime) %> - <%= getDateTimePrettyFormat(allEvents[i].endTime).substr(16) %>
+										<% } else { %>
+											<!-- Different start/end dates -->
+											<%= getDateTimePrettyFormat(allEvents[i].startTime) %> - <%= getDateTimePrettyFormat(allEvents[i].endTime) %>
+										<% } %>
+
+										<!-- Location (required) -->
+										<br><%= allEvents[i].location %>
+
+										<!-- RSVP Limit -->
+										<% var registered = allEvents[i].rsvpUsers.length %>
+										<% if (allEvents[i].rsvpLimit != null) { %>
+											<br>RSVP Limit: <%= registered %>/<%= allEvents[i].rsvpLimit %>
+										<% } else { %>
+											<br>Attendees Registered: <%= registered %> %>
+										<% } %>
+
+										<!-- Description -->
+										<% if (allEvents[i].description != null) { %><br><%= allEvents[i].description %><% } %>
+
+
+									</p>
+
+									<% if (user != null && user.roles.type.user) {%>
+										<% if (JSON.stringify(allEvents[i].rsvpUsers).indexOf("\"" + username + "\"") == -1) { %>
+											<% if ((allEvents[i].rsvpUsers.length == 0) || (allEvents[i].rsvpLimit > allEvents[i].rsvpUsers.length)) { %>
+												<!-- Show RSVP button if user is not currently RSVP'd and if there is still space to RSVP  -->
+												<form action="/event/<%= allEvents[i]._id %>/rsvp" method="POST" style="display: inline-block">
+													<button id=<%= "rsvp-" + allEvents[i]._id %> class="btn btn-default" onclick="location.href='/event/<%= allEvents[i]._id %>/rsvp'"><i class="fa fa-calendar-check-o"></i> I'm Attending</button>
+												</form>
+											<% } %>
+										<% } else { %>
+											<!-- Show UnRSVP button if user is already RSVP'd to the event -->
+											<form action="/event/<%= allEvents[i]._id %>/unrsvp" method="POST" style="display: inline-block">
+												<button id=<%= "rsvp-" + allEvents[i]._id %> class="btn btn-default" onclick="location.href='/event/<%= allEvents[i]._id %>/unrsvp'"><i class="fa fa-calendar-times-o"></i> I'm Not Attending</button>
+											</form>
+										<% } %>
+
+
+										<!-- <button id=<%= "show-" + allEvents[i]._id %> class="btn btn-default" onclick="location.href='/event/<%= allEvents[i]._id %>'"><i class="fa fa-eye"></i> Show Event</button> -->
+									<% } %>
+									<% if (user != null && (user.roles.type.admin || user.roles.type.superuser)) { %>
+										<button id=<%= "edit-" + allEvents[i]._id %> class="btn btn-default" onclick="location.href='/event/<%= allEvents[i]._id %>/edit'"><i class="fa fa-edit"></i> Edit Event</button>
+										<button id=<%= "duplicate-" + allEvents[i]._id %> class="btn btn-default" onclick="location.href='/event/<%= allEvents[i]._id %>/duplicate'"><i class="fa fa-copy"></i> Duplicate Event</button>
+										<!-- <form action="/event/<%= allEvents[i]._id %>/delete" method="POST" display="none" style="display: inline-block"> -->
+											<button id=<%= "delete-" + allEvents[i]._id %> data-record-id="<%= allEvents[i]._id %>" data-record-title="<%= allEvents[i].name %>" class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-trash"></i> Delete Event</button>
+										<!-- </form> -->
+									<% } %>
+
+								</article>
+
+							<% } %>
+					</section>
+
+				</div><!-- Jumbotron -->
+			</div><!-- col-sm-8 -->
+			<div class="col-sm-4">
+
+				<div class="well">
+					<h3>This section used for calendar view. To be programmed later.</h3>
+				</div>
+
+			</div>
+		</div>
+	</main>
+
+	<footer>
+		<% include ./partials/footer %>
+	</footer>
+
+	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                </div>
+                <div class="modal-body">
+                    <p>You are about to delete the <b><i class="title"></i></b> event. This procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                </div>
+                <div class="modal-footer">
+									<button type="button" class="btn btn-danger btn-ok">Delete</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<script>
+			$('#confirm-delete').on('click', '.btn-ok', function(e) {
+			    var $modalDiv = $(e.delegateTarget);
+			    var id = $(this).data('recordId');
+			    // $.ajax({url: '/api/record/' + id, type: 'DELETE'})
+			    $.post('/event/' + id + '/delete', function(data, status) {
+						console.log("Status: " + status);
+						setTimeout(function() {
+							$modalDiv.modal('hide').removeClass('loading');
+							window.location = "/";
+						}, 250)
+					});
+			    $modalDiv.addClass('loading');
+			});
+			$('#confirm-delete').on('show.bs.modal', function(e) {
+			    var data = $(e.relatedTarget).data();
+			    $('.title', this).text(data.recordTitle);
+			    $('.btn-ok', this).data('recordId', data.recordId);
+			});
+    </script>
+
+</body>
+</html>
