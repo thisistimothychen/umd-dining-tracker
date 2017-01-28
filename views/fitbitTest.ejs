@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% var username = username; var user = user; %>
+  <% include ./partials/head %>
+</head>
+<body class="container">
+
+  <header>
+    <% include ./partials/flash %>
+    <% include ./partials/header %>
+  </header>
+
+  <main>
+    <div class="jumbotron">
+      <h1>Profile <small><%= username %></small></h1>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <% include ./partials/footer %>
+  </footer>
+
+</body>
+</html>

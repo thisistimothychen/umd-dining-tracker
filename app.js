@@ -206,6 +206,15 @@ app.post('/profile', function(req, res) {
   }, true);
 });
 
+// fitbit test page
+
+app.get('/fitbitTest', function(req, res) {
+  checkPermissionsWithCallback(req, res, function(params) {
+    res.render('fitbitTest.ejs', params);
+  }, true);
+});
+
+
 
 
 /**
