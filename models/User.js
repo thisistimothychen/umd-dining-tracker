@@ -35,20 +35,18 @@ let UserSchema = new GetterSchema({
 		required: 'Email is required',
 		match: [/.+\@.+\..+/, 'A valid email address is required']
 	},
-	health: {
-		weight: {
-			type: Number
-		},
-		height: {
-			type: Number
-		},
-		gender: {
-			type: String,
-			trim: true
-		},
-		age: {
-			type: Number
-		}
+	age: {
+		type: Number
+	},
+	gender: {
+		type: String,
+		trim: true
+	},
+	weight: {
+		type: Number
+	},
+	height: {
+		type: Number
 	},
 	updated: {
 		type: Date,
