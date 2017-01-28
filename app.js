@@ -35,8 +35,6 @@ const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const cas_loginController = require('./controllers/cas_login');
 const userProfileController = require('./controllers/users.profile.server.controller');
-const eventController = require('./controllers/events.server.controller');
-const eventsService = require('./services/events.server.service.js')();
 
 /**
  * API keys and Passport configuration.
@@ -52,7 +50,7 @@ const app = express();
  * Connect to MongoDB.
  */
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI);
+mongoose.connect('mongodb://localhost/umd-dining-tracker');
 mongoose.connection.on('error', () => {
   console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
   process.exit();
@@ -125,7 +123,6 @@ moment().format();
 
 // Initialize database paths
 let User = require(path.resolve('./models/User'));
-let Event = require(path.resolve('./models/Event'));
 
 app.get('/cas_login', cas_loginController.cas_login);
 app.get('/logout', cas_loginController.cas_logout);
