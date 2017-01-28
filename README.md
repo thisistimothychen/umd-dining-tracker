@@ -1,5 +1,5 @@
-# cs-rsvp
-A new event RSVP system for the UMD Department of Computer Science
+# Daemon Dash 2017
+A health and nutrition tracker for UMD Students using UMD Dining Services' nutrition facts
 
 
 ## Running the app locally
