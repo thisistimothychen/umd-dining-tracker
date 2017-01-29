@@ -242,8 +242,6 @@ app.get('/full_menu', (req, res) => {
         console.log(err);
       }
     })
-
-
   }, true);
 });
 
@@ -266,9 +264,8 @@ app.get('/search', (req, res) => {
         console.log(err);
       }
     })
-
-
   }, true);
+});
 
 app.get('/new_food_manual', (req, res) => {
 	checkPermissionsWithCallback(req, res, (params) => {
