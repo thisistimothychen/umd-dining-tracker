@@ -23,8 +23,9 @@
 			</div><!-- col-sm-8 -->
 			<div class="col-sm-4">
 
-				<div class="well">
-					<h1 id="qr-data"></h1>
+				<div class="well" id="result-pane">
+					<h2 id="scanned-item"></h2>
+					<table class="table" id="scanned-item-nutrition"></table>
 				</div>
 
 			</div>
@@ -38,9 +39,24 @@
 	<script>
 		$(document).ready(function(){
 			$('#reader').html5_qrcode(function(data){
-					console.log('it works');
-					console.log(data);
-					$('#qr-data').text(data);
+//					$('#reader').html5_qrcode_stop();
+//					$('#qr-data').text(data);
+					$.get(`http://10.104.139.36:8080/get_nutrition.json?recipe=${data}`, (data, err) => {
+
+						$('#scanned-item').text(data.name);
+						let tableInfo =
+							`<h5>Serving size: ${data.portion}</h5>
+							<table class="table">
+								<tr><td>Calories: ${data.calories}</td></tr>
+								<tr><td>Total fat: ${data.totalfat}</td></tr>
+								<tr><td>Total carbohydrates: ${data.carb}</td></tr>
+								<tr><td>Cholesterol: ${data.cholesterol}</td></tr>
+								<tr><td>Protein: ${data.protein}</td></tr>
+								<tr><td>Sodium: ${data.sodium}</td></tr>
+								<tr><td>Allergens: ${data.allergens}</td></tr>
+							</table>`;
+						$('#scanned-item-nutrition').html(tableInfo);
+					});
 				},
 				function(error){
 					console.log(error);
