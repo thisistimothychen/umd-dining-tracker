@@ -11,6 +11,12 @@
 		<header>
 			<% include ./partials/flash %>
 			<% include ./partials/header %>
+<style>
+.my-button {
+    margin: 5px;
+}
+
+</style>
 		</header>
 
 		<main>
@@ -18,18 +24,18 @@
                             <div id="controls">
                                 <table style="margin: auto">
                                     <tr>
-                                        <td><button id="bNCD" type="button" class="btn btn-default">North Campus Diner</button></td>
-                                        <td><button id="bSCD" type="button" class="btn btn-primary btn-default">South Campus Diner</button></td>
-                                        <td><button id="b251" type="button" class="btn btn-default">251 North</button></td>
+                                        <td><button id="bNCD" type="button" class="btn btn-default my-button">North Campus Diner</button></td>
+                                        <td><button id="bSCD" type="button" class="btn btn-primary btn-default my-button">South Campus Diner</button></td>
+                                        <td><button id="b251" type="button" class="btn btn-default my-button">251 North</button></td>
                                     </tr>
                                     <tr>
-                                        <td><button id="bBreakfast" type="button" class="btn btn-default">Breakfast</button></td>
-                                        <td><button id="bLunch" type="button" class="btn btn-primary btn-default">Lunch</button></td>
-                                        <td><button id="bDinner" type="button" class="btn btn-default">Dinner</button></td>
+                                        <td><button id="bBreakfast" type="button" class="btn btn-default my-button">Breakfast</button></td>
+                                        <td><button id="bLunch" type="button" class="btn btn-primary btn-default my-button">Lunch</button></td>
+                                        <td><button id="bDinner" type="button" class="btn btn-default my-button">Dinner</button></td>
                                     </tr>
                                     <tr>
                                         <td></td>
-                                        <td><button id="update_menu" type="button" class="btn btn-success">Go</button></td>
+                                        <td><button id="update_menu" type="button" class="btn btn-success my-button">Go</button></td>
                                         <td></td>
                                     </tr>
                                 </table>
