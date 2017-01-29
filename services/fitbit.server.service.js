@@ -9,12 +9,16 @@ module.exports = function() {
 	/**
 	 * Normal function interacting with db and doing heavy lifting
 	 */
-	function functionName(parameters) {
+	function getFitbit(parameters) {
 		// Return a promise
+
+
+
+
 		return q();
 	}
 
 	return {
-		functionName: functionName
+		getFitbit: getFitbit
 	};
 };
