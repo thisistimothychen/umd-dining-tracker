@@ -5,113 +5,109 @@
   <% include ./partials/head %>
   <% var username = username; var user = user; %>
 </head>
-<body class="container">
+<body>
+  <div class="container">
 
-  <header>
-    <% include ./partials/flash %>
-    <% include ./partials/header %>
-  </header>
+    <header>
+      <% include ./partials/flash %>
+      <% include ./partials/header %>
+    </header>
 
-  <main>
-    <div class="jumbotron">
-      <h1>Profile <small><%= username %></small></h1>
+    <main>
+      <div class="jumbotron">
+        <h1>Profile <small><%= username %></small></h1>
 
-      <form class="form-horizontal" action="/profile" method="POST">
+        <form class="form-horizontal" action="/profile" method="POST">
 
-        <fieldset>
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="firstName">First Name</label>
-            <div class="col-md-4">
-              <input id="firstName" name="firstName" type="text" placeholder="" class="form-control input-md" required="" value="<%= (user && user.firstName) ? user.firstName : '' %>" >
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="lastName">Last Name</label>
-            <div class="col-md-4">
-              <input id="lastName" name="lastName" type="text" placeholder="" class="form-control input-md" required="" value="<%= (user && user.lastName) ? user.lastName : '' %>" >
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="email">Email Address</label>
-            <div class="col-md-4">
-              <input id="email" name="email" type="text" placeholder="" class="form-control input-md" required="" value="<%= (user && user.email) ? user.email : '' %>" >
-            </div>
-          </div>
-
-          <!-- Select Basic -->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="gender">Gender</label>
-            <div class="col-md-4">
-              <select id="gender" name="gender" class="form-control">
-                <% if (!user || !user.gender) { %>
-                  <option disabled selected value></option>
-                <% } %>
-                <option value="male" <%= (user && user.gender == "male") ? "selected" : "" %> >Male</option>
-                <option value="female" <%= (user && user.gender=="female") ? "selected" : "" %> >Female</option>
-                <option value="other" <%= (user && user.gender=="other") ? "selected" : "" %> >Other</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="age">Age</label>
-            <div class="col-md-4">
-            <input id="age" name="age" type="text" placeholder="" class="form-control input-md" value="<%= (user && user.age) ? user.age : '' %>" >
-            </div>
-          </div>
-
-          <!-- Appended Input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="weight">Weight</label>
-            <div class="col-md-4">
-              <div class="input-group">
-                <input id="weight" name="weight" class="form-control" placeholder="" type="text" value="<%= (user && user.weight) ? user.weight : '' %>" >
-                <span class="input-group-addon">pounds</span>
+          <fieldset>
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="firstName">First Name</label>
+              <div class="col-md-4">
+                <input id="firstName" name="firstName" type="text" placeholder="" class="form-control input-md" required="" value="<%= (user && user.firstName) ? user.firstName : '' %>" >
               </div>
-
             </div>
-          </div>
 
-          <!-- Appended Input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="height">Height</label>
-            <div class="col-md-4">
-              <div class="input-group">
-                <input id="height" name="height" class="form-control" placeholder="" type="text" value="<%= (user && user.height) ? user.height : '' %>" >
-                <span class="input-group-addon">inches</span>
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="lastName">Last Name</label>
+              <div class="col-md-4">
+                <input id="lastName" name="lastName" type="text" placeholder="" class="form-control input-md" required="" value="<%= (user && user.lastName) ? user.lastName : '' %>" >
               </div>
-
             </div>
-          </div>
 
-
-
-          <!-- Button -->
-          <div class="form-group">
-            <div class="col-md-4 col-md-offset-4">
-              <button id="submit" name="submit" class="btn btn-default">Update Profile</button>
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="email">Email Address</label>
+              <div class="col-md-4">
+                <input id="email" name="email" type="text" placeholder="" class="form-control input-md" required="" value="<%= (user && user.email) ? user.email : '' %>" >
+              </div>
             </div>
-          </div>
 
-        </fieldset>
-      </form>
+            <!-- Select Basic -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="gender">Gender</label>
+              <div class="col-md-4">
+                <select id="gender" name="gender" class="form-control">
+                  <% if (!user || !user.gender) { %>
+                    <option disabled selected value></option>
+                  <% } %>
+                  <option value="male" <%= (user && user.gender == "male") ? "selected" : "" %> >Male</option>
+                  <option value="female" <%= (user && user.gender=="female") ? "selected" : "" %> >Female</option>
+                  <option value="other" <%= (user && user.gender=="other") ? "selected" : "" %> >Other</option>
+                </select>
+              </div>
+            </div>
 
-    </div>
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="age">Age</label>
+              <div class="col-md-4">
+              <input id="age" name="age" type="text" placeholder="" class="form-control input-md" value="<%= (user && user.age) ? user.age : '' %>" >
+              </div>
+            </div>
+
+            <!-- Appended Input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="weight">Weight</label>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <input id="weight" name="weight" class="form-control" placeholder="" type="text" value="<%= (user && user.weight) ? user.weight : '' %>" >
+                  <span class="input-group-addon">pounds</span>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Appended Input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="height">Height</label>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <input id="height" name="height" class="form-control" placeholder="" type="text" value="<%= (user && user.height) ? user.height : '' %>" >
+                  <span class="input-group-addon">inches</span>
+                </div>
+
+              </div>
+            </div>
 
 
 
+            <!-- Button -->
+            <div class="form-group">
+              <div class="col-md-4 col-md-offset-4">
+                <button id="submit" name="submit" class="btn btn-default">Update Profile</button>
+              </div>
+            </div>
 
-  </main>
+          </fieldset>
+        </form>
 
-  <footer>
-    <% include ./partials/footer %>
-  </footer>
+      </div>
+    </main>
+  </div>
+
+  <% include ./partials/footer %>
 
 </body>
 </html>
