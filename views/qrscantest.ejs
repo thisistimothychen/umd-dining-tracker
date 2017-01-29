@@ -41,7 +41,7 @@
 			$('#reader').html5_qrcode(function(data){
 //					$('#reader').html5_qrcode_stop();
 //					$('#qr-data').text(data);
-					$.get(`http://10.104.139.36:8080/get_nutrition.json?recipe=${data}`, (data, err) => {
+					$.get(`http://umddiningapi.pesce.host/get_nutrition.json?recipe=${data}`, (data, err) => {
 
 						$('#scanned-item').text(data.name);
 						let tableInfo =
