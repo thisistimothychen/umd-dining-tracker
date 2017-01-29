@@ -136,6 +136,14 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 var moment = require('moment');
 moment().format();
 
+// set up a route to redirect http to https
+app.get('*',function(req,res,next) {
+  if (app.get('env') == "development") {
+    return next();
+  } else {
+    res.redirect("https://" + req.headers.host + req.url);
+  }
+});
 
 
 // Initialize database paths
@@ -145,6 +153,12 @@ app.get('/cas_login', cas_loginController.cas_login);
 app.get('/logout', cas_loginController.cas_logout);
 // use res.render to load up an ejs view file
 
+app.get('/demo_login', function(req, res){
+  req.session.cas_username = "demo_user";
+  checkPermissionsWithCallback(req, res, function(params) {
+    res.render('index.ejs', params);
+  }, false);
+});
 
 
 /**
@@ -238,7 +252,7 @@ app.get('/todays_menu', (req, res) => {
   let locCode = req.query.location_id;
   let mealName = req.query.meal_name;
   if(locCode == null) {
-     locCode = "04"; 
+     locCode = "04";
   }
   if(mealName == null) {
       mealName = "Lunch";
