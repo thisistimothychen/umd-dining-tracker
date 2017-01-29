@@ -16,8 +16,22 @@
 		<div class="jumbotron">
 
 
-				Search:<br>
-				<input type="text" id="searchBar" onkeyup="filterItems()">
+			<form class="form-horizontal">
+				<fieldset>
+
+
+					<!-- Search input-->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="search-box">Search</label>
+						<div class="col-md-4">
+							<input onkeyup="filterItems()" id="searchBar" name="search-box" type="search" placeholder="" class="form-control input-md" required="">
+
+						</div>
+					</div>
+
+				</fieldset>
+			</form>
+
 
 			<table class="table" id="searchTable">
 				<tr>
