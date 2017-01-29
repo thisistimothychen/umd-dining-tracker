@@ -15,10 +15,19 @@
 			<table class="table">
 				<tr>
 					<th>Food name</th>
+					<th>Calories</th>
+					<th>Portion</th>
 				</tr>
         <% for (let i=0; i<menu.length; i++) { %>
             <tr>
-                <td id="<%= menu[i].recipe %>"><%= menu[i].name %></td>
+							<td id="<%= menu[i].recipe %>"><%= menu[i].name %></td>
+							<% if (menu[i].nutrition != null) { %>
+								<td><%= menu[i].nutrition.calories %> cals</td>
+								<td><%= menu[i].nutrition.portion %></td>
+							<% } else { %>
+								<td>--</td>
+								<td>--</td>
+							<% } %>
             </tr>
         <% } %>
 			</table>
@@ -29,24 +38,5 @@
 		<% include ./partials/footer %>
 	</footer>
 
-	<script>
-		$(document).ready(function(){
-				$.get(`http://umddiningapi.pesce.host/get_nutrition.json?recipe=${data}`, function(data, err) {
-					$('#scanned-item').text(data.name);
-					let popupCode =
-						`<h5>Serving size: ${data.portion}</h5>
-						<table class="table">
-							<tr><td>Calories: ${data.calories}</td></tr>
-							<tr><td>Total fat: ${data.totalfat}</td></tr>
-							<tr><td>Total carbohydrates: ${data.carb}</td></tr>
-							<tr><td>Cholesterol: ${data.cholesterol}</td></tr>
-							<tr><td>Protein: ${data.protein}</td></tr>
-							<tr><td>Sodium: ${data.sodium}</td></tr>
-							<tr><td>Allergens: ${data.allergens}</td></tr>
-						</table>`;
-					$('#scanned-item-nutrition').html(tableInfo);
-				});
-		});
-	</script>
 </body>
 </html>
