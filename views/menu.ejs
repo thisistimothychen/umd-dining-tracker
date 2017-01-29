@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<% var username = username; var user = user; %>
+	<% var username = username; var user = user; var menu = menu; %>
 	<% include ./partials/head %>
-	<% var username = username; var user = user; %>
-
 </head>
 <body class="container">
 	<header>
@@ -17,24 +15,21 @@
 			<table class="table">
 				<tr>
 					<th>Food name</th>
-					<th>Serving Size</th>
 					<th>Calories</th>
-					<th>Total Fat</th>
-					<th>Sodium</th>
-					<th>Total Carbohydrates</th>
-					<th>Protein</th>
+					<th>Portion</th>
 				</tr>
-                <% for (let food in menu) { %>
-                    <tr>
-                        <td> <% food.name %> </td>
-                        <td> <% food.servingSize %> </td>
-                        <td> <% food.calories %> </td>
-                        <td> <% food.fat %> </td>
-                        <td> <% food.sodium%> </td>
-                        <td> <% food.carbs %> </td>
-                        <td> <% food.protein %> </td>
-                    </tr>
-                <% } %>
+        <% for (let i=0; i<menu.length; i++) { %>
+            <tr>
+							<td id="<%= menu[i].recipe %>"><%= menu[i].name %></td>
+							<% if (menu[i].nutrition != null) { %>
+								<td><%= menu[i].nutrition.calories %> cals</td>
+								<td><%= menu[i].nutrition.portion %></td>
+							<% } else { %>
+								<td>--</td>
+								<td>--</td>
+							<% } %>
+            </tr>
+        <% } %>
 			</table>
 		</div>
 	</main>
@@ -42,5 +37,6 @@
 	<footer>
 		<% include ./partials/footer %>
 	</footer>
+
 </body>
 </html>
