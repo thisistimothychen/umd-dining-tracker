@@ -18,6 +18,7 @@ const passport = require('passport');
 const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const multer = require('multer');
+const request = require('request');
 
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
@@ -217,6 +218,12 @@ app.get('/fitbitTest', function(req, res) {
 
 
 
+app.get('/full_menu', (req, res) => {
+  checkPermissionsWithCallback(req, res, (params) => {
+    request(); // TODO later: call get_full_menu
+    res.render('menu.ejs', params);
+  }, true);
+});
 
 /**
  * Error Handler.
