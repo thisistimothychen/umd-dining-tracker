@@ -304,6 +304,7 @@ app.post('/data/get', (req, res) => {
     recordsController.getData(req, res, date)
       .then((result) => {
         params.userData = result.elements;
+        params.dateStr = req.body.date;
   			res.render('data.ejs', params);
   		}, (err) => {
   			res.status(400).json(err);
