@@ -268,7 +268,7 @@ app.get('/search', (req, res) => {
   // Breakfast, Lunch, or Dinner
   checkPermissionsWithCallback(req, res, (params) => {
     var locCode = "04";
-    var url = `https://umddiningapi.pesce.host/get_all_items.json?date`;
+    var url = `https://umddiningapi.pesce.host/get_all_items.json`;
     request(url, function(err, result, body) {
       if (!err && res.statusCode == 200) {
         params.menu = JSON.parse(body);

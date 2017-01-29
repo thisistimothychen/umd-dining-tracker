@@ -33,12 +33,42 @@
 			var prevOpened = 0;
 
 			function toggleFact(i){
+                            if($("#fact"+i).length == 0) {
+                                $.get("https://umddiningapi.pesce.host/get_nutrition.json?recipe="+$("#tr"+i).children("td").first().attr("id"), function(nutrition, err) {
+                                    var menuItem = "";
+                                    if (nutrition != null) {
+                                            menuItem = '<tr id="fact' + i + '"> <td style="padding-left:50px">' +
+                                                    '<div>Calories: ' +  nutrition.calories  +' cals</div>' +
+                                                    '<div>Portion: ' + nutrition.portion + '<div>' +
+                                                    '<div>Carb: '+nutrition.carb + '</div>' +
+                                                    '<div>Saturated Fat: '+nutrition.satfat +'</div>' +
+                                                    '<div>Protein: '+nutrition.protein+'</div>' +
+                                                    '<div>Sodium: '+nutrition.sodium+'</div>' +
+                                                    '<div>Calcium: '+nutrition.calcium+'</div>' +
+                                                    '<div>Fiber: '+nutrition.fiber+'</div>' +
+                                                    '<div>Sugar: '+nutrition.sugar+'</div>' +
+                                                    '<div>Trans Fat: '+nutrition.transfat+'</div>' +
+                                                    '<div>Cholesterol: '+nutrition.cholesterol+'</div>' +
+                                                    '<div>Ingredients: '+nutrition.ingredients+'</div>' +
+                                                    '<div>Allergens: '+nutrition.allergens+'</div>' +
+                                            '</td></tr>';
+                                    } else {
+                                            menuItem = '<tr id="fact' + i + '"> <td style="padding-left:50px">--</td></tr>';
+                                    }
+                                    $("#tr"+i).after(menuItem);
+                                    hideFact(prevOpened);
+                                    if (i != prevOpened){
+                                            $("#fact" + i).toggle();
+                                            prevOpened = i;
+                                    }
+                                });
+                            } else {
 				hideFact(prevOpened);
 				if (i != prevOpened){
 					$("#fact" + i).toggle();
 					prevOpened = i;
 				}
-
+                            }
 			}
 
 			function hideFact(i){
@@ -72,30 +102,9 @@
 		  		}
 				hideAllFacts();
 			}
-			<%console.log(menu[0].nutrition); %>
 
 			<%for (let i = 0; i < menu.length; i++){ %>
-				var menuItem = '<tr onclick="toggleFact(<%= i %>)""><td id="<%=menu[i].recipe%>"><%=menu[i].name%></td><tr>';
-				<%if (menu[i].nutrition != null) {%>
-					menuItem += '<tr id="fact<%= i %>"> <td style="padding-left:50px">' +
-						'<div>Calories:  <%= menu[i].nutrition.calories %> cals</div>' +
-						'<div>Portion: <%= menu[i].nutrition.portion %></div>' +
-						'<div>Carb: <%= menu[i].nutrition.carb %></div>' +
-						'<div>Saturated Fat: <%= menu[i].nutrition.satfat %></div>' +
-						'<div>Protein: <%= menu[i].nutrition.protein %></div>' +
-						'<div>Sodium: <%= menu[i].nutrition.sodium %></div>' +
-						'<div>Calcium: <%= menu[i].nutrition.calcium %></div>' +
-						'<div>Fiber: <%= menu[i].nutrition.fiber %></div>' +
-						'<div>Sugar: <%= menu[i].nutrition.sugar %></div>' +
-						'<div>Trans Fat: <%= menu[i].nutrition.transfat %></div>' +
-						'<div>Cholesterol: <%= menu[i].nutrition.cholesterol %></div>' +
-						'<div>Ingredients: <%= menu[i].nutrition.ingredients %></div>' +
-						'<div>Allergens: <%= menu[i].nutrition.allergens %></div>' +
-					'</td></tr>';
-				<%} else {%>
-					menuItem += '<tr id="fact<%= i %>"> <td style="padding-left:50px">--</td></tr>';
-				<%}%>
-
+                            var menuItem = '<tr onclick="toggleFact(<%= i %>)" id="tr<%=i%>"><td id="<%=menu[i].recipe%>"><%=menu[i].name%></td><tr>';
 				$("#searchTable").append(menuItem);
 				hideFact(<%= i %>);
 			<%}%>
