@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<% var username = username; var user = user; var menu = menu; %>
-	<% include ./partials/head %>
+		<% include ./partials/head %>
 </head>
+
 <body class="container">
 	<header>
 		<% include ./partials/flash %>
-		<% include ./partials/header %>
+			<% include ./partials/header %>
 	</header>
 
 	<main>
@@ -18,18 +20,23 @@
 					<th>Calories</th>
 					<th>Portion</th>
 				</tr>
-        <% for (let i=0; i<menu.length; i++) { %>
-            <tr>
-							<td id="<%= menu[i].recipe %>"><%= menu[i].name %></td>
-							<% if (menu[i].nutrition != null) { %>
-								<td><%= menu[i].nutrition.calories %> cals</td>
-								<td><%= menu[i].nutrition.portion %></td>
+				<% for (let i=0; i<menu.length; i++) { %>
+					<tr>
+						<td id="<%= menu[i].recipe %>">
+							<%= menu[i].name %>
+						</td>
+						<% if (menu[i].nutrition != null) { %>
+							<td>
+								<%= menu[i].nutrition.calories %> cals</td>
+							<td>
+								<%= menu[i].nutrition.portion %>
+							</td>
 							<% } else { %>
 								<td>--</td>
 								<td>--</td>
-							<% } %>
-            </tr>
-        <% } %>
+								<% } %>
+					</tr>
+					<% } %>
 			</table>
 		</div>
 	</main>
@@ -39,4 +46,5 @@
 	</footer>
 
 </body>
+
 </html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<% var username = username; var user = user; var menu = menu; %>
+		<% include ./partials/head %>
+</head>
+
+<body class="container">
+	<header>
+		<% include ./partials/flash %>
+			<% include ./partials/header %>
+	</header>
+
+	<main>
+		<div class="jumbotron">
+
+
+				Search:<br>
+				<input type="text" id="searchBar" onkeyup="filterItems()">
+
+			<table class="table" id="searchTable">
+				<tr>
+					<th>Food name</th>
+
+
+
+				</tr>
+			</table>
+		</div>
+
+		<script type="text/javascript">
+			var prevOpened = 0;
+
+			function toggleFact(i){
+				hideFact(prevOpened);
+				if (i != prevOpened){
+					$("#fact" + i).toggle();
+					prevOpened = i;
+				}
+				
+			}
+
+			function hideFact(i){
+				$("#fact" + i).hide();
+			}
+
+			function hideAllFacts(){
+				<%for (let i = 0; i < menu.length; i++){ %>
+					hideFact(<%= i %>);
+				<% } %>
+			}
+
+			function filterItems(){
+				// Declare variables
+		  		var input, filter, table, tr, td, i;
+		  		input = document.getElementById("searchBar");
+		  		filter = input.value.toUpperCase();
+				table = document.getElementById("searchTable");
+				tr = table.getElementsByTagName("tr");
+
+				// Loop through all table rows, and hide those who don't match the search query
+				for (i = 0; i < tr.length; i++) {
+		    		td = tr[i].getElementsByTagName("td")[0];
+		    		if (td) {
+		      			if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+		        			tr[i].style.display = "";
+		      			} else {
+		        			tr[i].style.display = "none";
+		      			}
+		    		}
+		  		}
+				hideAllFacts();
+			}
+			<%console.log(menu[0].nutrition); %>
+
+			<%for (let i = 0; i < menu.length; i++){ %>
+				var menuItem = '<tr onclick="toggleFact(<%= i %>)""><td id="<%=menu[i].recipe%>"><%=menu[i].name%></td><tr>';
+				<%if (menu[i].nutrition != null) {%>
+					menuItem += '<tr id="fact<%= i %>"> <td style="padding-left:50px">' +
+						'<div>Calories:  <%= menu[i].nutrition.calories %> cals</div>' +
+						'<div>Portion: <%= menu[i].nutrition.portion %></div>' +
+						'<div>Carb: <%= menu[i].nutrition.carb %></div>' +
+						'<div>Saturated Fat: <%= menu[i].nutrition.satfat %></div>' +
+						'<div>Protein: <%= menu[i].nutrition.protein %></div>' +
+						'<div>Sodium: <%= menu[i].nutrition.sodium %></div>' +
+						'<div>Calcium: <%= menu[i].nutrition.calcium %></div>' +
+						'<div>Fiber: <%= menu[i].nutrition.fiber %></div>' +
+						'<div>Sugar: <%= menu[i].nutrition.sugar %></div>' +
+						'<div>Trans Fat: <%= menu[i].nutrition.transfat %></div>' +
+						'<div>Cholesterol: <%= menu[i].nutrition.cholesterol %></div>' +
+						'<div>Ingredients: <%= menu[i].nutrition.ingredients %></div>' +
+						'<div>Allergens: <%= menu[i].nutrition.allergens %></div>' +
+					'</td></tr>';
+				<%} else {%>
+					menuItem += '<tr id="fact<%= i %>"> <td style="padding-left:50px">--</td></tr>';
+				<%}%>
+
+				$("#searchTable").append(menuItem);
+				hideFact(<%= i %>);
+			<%}%>
+		</script>
+	</main>
+
+	<footer>
+		<% include ./partials/footer %>
+	</footer>
+
+</body>
+
+</html>
