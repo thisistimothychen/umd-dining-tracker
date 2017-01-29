@@ -12,13 +12,32 @@
 		#particles-js {
 			position: absolute;
 			width: 100%;
-			height: 100%;
+			height: 90%;
 			background-color: #b61924;
 			background-image: url("");
 			background-repeat: no-repeat;
 			background-size: cover;
 			background-position: 50% 50%;
 			z-index:-100;
+		}
+
+		#front-h1 {
+			text-align:center;
+			color:white;
+			padding:10px;
+			padding-top:25vh;
+		}
+
+		#front-h2 {
+			text-align:center;
+			color:white;
+			padding:10px;
+		}
+
+		@media(max-width:400px) {
+			#front-h1 {
+				padding-top:20%;
+			}
 		}
 
 	</style>
@@ -32,7 +51,10 @@
 	<% include ./partials/footer %>
 	<div id="particles-js"></div>
 
-
+	<div style="margin:auto;">
+		<h1 id="front-h1">UMD Diner Tracker</h1>
+		<h2 id="front-h2">A webapp to track your UMD dining experience</h2>
+	</div>
 
 	<script src='https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
 	<script src="js/runParticles.js"></script>
