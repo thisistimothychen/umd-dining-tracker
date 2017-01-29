@@ -34,6 +34,9 @@ require("jsdom").env("", function(err, window) {
     var $ = require("jquery")(window);
 });
 
+
+
+
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
@@ -265,7 +268,7 @@ app.get('/search', (req, res) => {
   // Breakfast, Lunch, or Dinner
   checkPermissionsWithCallback(req, res, (params) => {
     var locCode = "04";
-    var url = `https://umddiningapi.pesce.host/get_full_menu.json?date=${getTodaysDate()}&location_id=${locCode}&meal_name=Lunch`;
+    var url = `https://umddiningapi.pesce.host/get_all_items.json?date`;
     request(url, function(err, result, body) {
       if (!err && res.statusCode == 200) {
         params.menu = JSON.parse(body);
@@ -308,6 +311,20 @@ app.post('/records', (req, res) => {
   }, true);
 });
 
+app.post('/data/get', (req, res) => {
+  checkPermissionsWithCallback(req, res, (params) => {
+    date = new Date(req.body.date);
+    recordsController.getData(req, res, date)
+      .then((result) => {
+        params.userData = result.elements;
+        params.dateStr = req.body.date;
+  			res.render('data.ejs', params);
+  		}, (err) => {
+  			res.status(400).json(err);
+  		});
+  }, true);
+});
+
 function getTodaysDate() {
   var today = new Date();
   var dd = today.getDate();
@@ -335,5 +352,6 @@ app.listen(app.get('port'), () => {
   console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env')); 
   console.log('  Press CTRL-C to stop\n');
 });
+
 
 module.exports = app;

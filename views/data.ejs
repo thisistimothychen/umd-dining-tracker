@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <% var username = username; var user = user; %>
+    <% var username = username; var user = user; var userData = userData; var dateStr = dateStr; %>
     <% include ./partials/head %>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 </head>
 <body>
   <div class="container">
@@ -12,8 +13,76 @@
     </header>
 
     <main>
-      
+      <div class="jumbotron">
 
+
+        <% if (userData != null && userData.length != 0) { %>
+          <% let totalCalories = 0; %>
+          <h1>User Data <small><%= username %></small></h1>
+
+          <table class="table">
+            <tr>
+              <th width="40%">Food Item</th>
+              <th>Quantity Consumed</th>
+              <th>Calories Ingested</th>
+            </tr>
+            <% for (let i=0; i<userData.length; i++) { %>
+              <% for (let j=0; j<userData[i].food.length; j++) { %>
+                <tr>
+                  <td width="40%"><%= userData[i].food[j].name %></td>
+                  <td><%= userData[i].food[j].quantity %> <%= userData[i].food[j].measurement %></td>
+                  <td><%= userData[i].food[j].calories %> cals</td>
+                  <% totalCalories += userData[i].food[j].calories %>
+                </tr>
+              <% } %>
+            <% } %>
+          </table>
+
+          <h3>Total Calories Consumed: <i><%= totalCalories %></i></h3>
+
+        <% } else { %>
+
+          <% if (userData != null && userData.length == 0) { %>
+            <h3 style="text-align: center">No data to display for <%= dateStr %>.</h3>
+          <% } %>
+
+          <form class="form-horizontal" action="/data/get" method="POST">
+            <fieldset>
+
+              <!-- Datepicker -->
+              <div class="center" style="text-align:center;margin:auto;padding-top:50px;">
+                  <label class="control-label" for="date">Pick <%= (userData != null && userData.length == 0) ? "another" : "the" %> date you would like to view:</label>
+                  <div class="input-group date" data-provide="datepicker" style="margin:auto;width:300px">
+                      <input required type="text" class="form-control" id="date" name="date">
+                      <div class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                      </div>
+                  </div>
+
+                  <br>
+
+                <!-- Button -->
+                <div class="form-group">
+                  <div class="col-md-4 col-md-offset-4">
+                    <button id="submit" name="submit" class="btn btn-default">View My Data</button>
+                  </div>
+                </div>
+              </div>
+
+            </fieldset>
+          </form>
+
+
+          <!-- Bootstrap DateTimePicker JS -->
+          <script type="text/javascript">
+            $('#date input').datepicker({
+              format: "yyyy-mm-dd",
+              todayHighlight: true
+            });
+          </script>
+        <% } %>
+
+      </div>
     </main>
   </div>
 

@@ -3,34 +3,38 @@
 <head>
 	<% var username = username; var user = user; %>
 	<% include ./partials/head %>
+	<style>
+		canvas {
+			display: block;
+			vertical-align: bottom;
+		}
+
+		#particles-js {
+  			position: absolute;
+  			width: 100%;
+			height: 100%;
+			background-color: #b61924;
+			background-image: url("");
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: 50% 50%;
+		}
+
+	</style>
 </head>
-<body>
-	<div class="container">
-		<header>
-			<% include ./partials/flash %>
-			<% include ./partials/header %>
-		</header>
+<body >
 
-		<main>
-			<div class="row">
-				<div class="col-sm-8">
-					<div class="jumbotron">
-						<h1>UMD Dining Services</h1>
 
-					</div><!-- Jumbotron -->
-				</div><!-- col-sm-8 -->
-				<div class="col-sm-4">
 
-					<div class="well">
-						<h3>This section used for calendar view. To be programmed later.</h3>
-					</div>
-
-				</div>
-			</div>
-		</main>
-	</div>
-
+	<% include ./partials/flash %>
+	<% include ./partials/header %>
 	<% include ./partials/footer %>
+	<div id="particles-js"></div>
+
+
+
+	<script src='http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
+	<script src="js/runParticles.js"></script>
 
 </body>
 </html>
