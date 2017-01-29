@@ -216,7 +216,11 @@ app.get('/fitbitTest', function(req, res) {
   }, true);
 });
 
-
+app.get('/QRscanTest', (req, res) => {
+  checkPermissionsWithCallback(req, res, (params) => {
+    res.sendFile(path.join(__dirname+'/views/qrscantest.html'));
+  }, true);
+});
 
 app.get('/full_menu', (req, res) => {
   checkPermissionsWithCallback(req, res, (params) => {
