@@ -229,7 +229,7 @@ app.get('/qr_reader', (req, res) => {
 });
 
 //Full Menu
-app.get('/full_menu', (req, res) => {
+app.get('/todays_menu', (req, res) => {
   // 04 --> North Campus Diner
   // 51 --> 251
   // 16 --> South Campus Diner
@@ -258,7 +258,7 @@ app.get('/search', (req, res) => {
   // Breakfast, Lunch, or Dinner
   checkPermissionsWithCallback(req, res, (params) => {
     var locCode = "04";
-    var url = `https://umddiningapi.pesce.host/get_full_menu.json?date=${getTodaysDate()}&location_id=${locCode}&meal_name=Lunch`;
+    var url = `https://umddiningapi.pesce.host/get_all_items.json?date`;
     request(url, function(err, result, body) {
       if (!err && res.statusCode == 200) {
         params.menu = JSON.parse(body);
@@ -292,6 +292,26 @@ app.post('/new_food_manual', (req, res) => {
 app.get('/data', (req, res) => {
   checkPermissionsWithCallback(req, res, (params) => {
     res.render('data.ejs', params);
+  }, true);
+});
+
+app.post('/records', (req, res) => {
+  checkPermissionsWithCallback(req, res, (params) => {
+    recordsController.search(req, res);
+  }, true);
+});
+
+app.post('/data/get', (req, res) => {
+  checkPermissionsWithCallback(req, res, (params) => {
+    date = new Date(req.body.date);
+    recordsController.getData(req, res, date)
+      .then((result) => {
+        params.userData = result.elements;
+        params.dateStr = req.body.date;
+  			res.render('data.ejs', params);
+  		}, (err) => {
+  			res.status(400).json(err);
+  		});
   }, true);
 });
 

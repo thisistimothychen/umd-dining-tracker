@@ -16,15 +16,16 @@
 						<ul class="nav navbar-nav">
 							<% if (username != null || user != null) { %>
 								<li><a href="/qr_reader">QR Reader</a></li>
-								<li><a href="/full_menu">Today's Menu</a></li>
+								<li><a href="/new_food_manual">Add Calories</a></li>
+								<li><a href="/todays_menu">Today's Menu</a></li>
 								<li><a href="/search">Search Menu</a></li>
 								<li><a href="/data">My Data</a></li>
 							<% } %>
 						</ul>
 
 						<ul class="nav navbar-nav" style="float: right">
-							<li><a href="/profile">Profile</a></li>
 								<% if (username != null || user != null) { %>
+									<li><a href="/profile">Profile</a></li>
 									<li class="pull-right"><a href="/logout" class="navbar-nav pull-right">Logout</a></li>
 								<% } else { %>
 									<li><a href="/cas_login" class="navbar-nav pull-right">Login</a></li>
