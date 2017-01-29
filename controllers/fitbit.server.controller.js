@@ -4,11 +4,8 @@ let	path = require('path'),
 	q = require('q'),
 	fitbitService = require(path.resolve('./services/fitbit.server.service.js'))();
 
-module.exports.callFitbitAPI = function(req, res, params) {
-	console.log("Hello World")
-	console.log(req.body);
-
-	fitbitService.functionName()
+module.exports.fitbit = function(req, res, params) {
+	fitbitService.getFitbit()
 	.then(function(result) {
 		res.render('fitbitTest.ejs', params);
 	}, function(err) {

@@ -211,8 +211,8 @@ app.post('/profile', function(req, res) {
 
 app.get('/fitbitTest', function(req, res) {
   checkPermissionsWithCallback(req, res, function(params) {
-    fitbitController.callFitbitAPI(req, res, params);
-    
+    fitbitController.fitbit(req, res, params);
+
   }, true);
 });
 
@@ -221,6 +221,7 @@ app.get('/QRscanTest', (req, res) => {
     res.sendFile(path.join(__dirname+'/views/qrscantest.html'));
   }, true);
 });
+
 
 app.get('/full_menu', (req, res) => {
   checkPermissionsWithCallback(req, res, (params) => {
