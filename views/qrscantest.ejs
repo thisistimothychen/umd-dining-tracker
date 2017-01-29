@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% var username = username; var user = user; %>
+	<% include ./partials/head %>
+	<script src="/js/qrScanner.js"></script>
+</head>
+<body class="container">
+
+	<header>
+		<% include ./partials/flash %>
+		<% include ./partials/header %>
+	</header>
+
+	<main>
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="jumbotron">
+
+					<div id="reader" style="width:500px;height:450px;"></div>
+
+				</div><!-- Jumbotron -->
+			</div><!-- col-sm-8 -->
+			<div class="col-sm-4">
+
+				<div class="well">
+					<h1 id="qr-data"></h1>
+				</div>
+
+			</div>
+		</div>
+	</main>
+
+	<footer>
+		<% include ./partials/footer %>
+	</footer>
+
+	<script>
+		$(document).ready(function(){
+			$('#reader').html5_qrcode(function(data){
+					console.log('it works');
+					console.log(data);
+					$('#qr-data').text(data);
+				},
+				function(error){
+					console.log(error);
+				}, function(videoError){
+					console.log(videoError);
+			}
+			);
+		});
+	</script>
+
+</body>
+</html>
