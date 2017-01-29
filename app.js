@@ -226,7 +226,7 @@ app.get('/qr_reader', (req, res) => {
 });
 
 //Full Menu
-app.get('/full_menu', (req, res) => {
+app.get('/todays_menu', (req, res) => {
   // 04 --> North Campus Diner
   // 51 --> 251
   // 16 --> South Campus Diner
