@@ -15,37 +15,125 @@
 
 		<main>
 			<div class="jumbotron">
-				<% for (let i=0; i<menu.length; i++) { %>
-					<h3><%= menu[i].area %></h3>
-
-					<table class="table">
-						<tr>
-							<th width="40%">Food name</th>
-							<th>Calories</th>
-							<th>Portion</th>
-						</tr>
-							<% for (let j=0; j<menu[i].menu.length; j++) { %>
-								<% let menuItem = menu[i].menu[j] %>
-								<tr>
-									<td id="<%= menuItem.recipe %>" width="40%">
-										<%= menuItem.name %>
-									</td>
-									<% if (menuItem.nutrition != null) { %>
-										<td><%= menuItem.nutrition.calories %> cals</td>
-										<td><%= menuItem.nutrition.portion %></td>
-									<% } else { %>
-										<td>--</td>
-										<td>--</td>
-									<% } %>
-								</tr>
-							<% } %>
-					</table>
-				<% } %>
+                            <div id="controls">
+                                <table style="margin: auto">
+                                    <tr>
+                                        <td><button id="bNCD" type="button" class="btn btn-default">North Campus Diner</button></td>
+                                        <td><button id="bSCD" type="button" class="btn btn-primary btn-default">South Campus Diner</button></td>
+                                        <td><button id="b251" type="button" class="btn btn-default">251 North</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><button id="bBreakfast" type="button" class="btn btn-default">Breakfast</button></td>
+                                        <td><button id="bLunch" type="button" class="btn btn-primary btn-default">Lunch</button></td>
+                                        <td><button id="bDinner" type="button" class="btn btn-default">Dinner</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><button id="update_menu" type="button" class="btn btn-success">Go</button></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="menu">
+                            </div>
 			</div>
 		</main>
 
 	</div>
 	<% include ./partials/footer %>
+        <script>
+            $(document).ready(function(){
+
+                var location_id = "16";
+                var meal = "Lunch";
+                $("#bLunch").click(function() {
+                    meal = "Lunch";
+                    $("#bLunch").addClass("btn-primary");
+                    $("#bLunch").parent().siblings().children().removeClass("btn-primary");
+                });
+                $("#bDinner").click(function() {
+                    meal = "Dinner";
+                    $("#bDinner").addClass("btn-primary");
+                    $("#bDinner").parent().siblings().children().removeClass("btn-primary");
+                });
+                $("#bBreakfast").click(function() {
+                    meal = "Breakfast";
+                    $("#bBreakfast").addClass("btn-primary");
+                    $("#bBreakfast").parent().siblings().children().removeClass("btn-primary");
+                });
+
+                $("#bNCD").click(function() {
+                    location_id = "04";
+                    $("#bNCD").addClass("btn-primary");
+                    $("#bNCD").parent().siblings().children().removeClass("btn-primary");
+                });
+                $("#bSCD").click(function() {
+                    location_id = "16";
+                    $("#bSCD").addClass("btn-primary");
+                    $("#bSCD").parent().siblings().children().removeClass("btn-primary");
+                });
+                $("#b251").click(function() {
+                    location_id = "51";
+                    $("#b251").addClass("btn-primary");
+                    $("#b251").parent().siblings().children().removeClass("btn-primary");
+                });
+
+                $("#update_menu").click(function() {
+                    var $menu = $("#menu");
+                    $menu.html('Loading...');
+                    $.get("https://umddiningapi.pesce.host/get_full_menu.json?date="+"01/29/2017"+"&location_id="+location_id+"&meal_name="+meal, function(menu, status){
+                        if(menu.length == 0) {
+                            $menu.html('This location is not open at this time.');
+                            return;
+                        }
+                        $menu.html('');
+                        for (let i=0; i<menu.length; i++) {
+                            $menu.append("<h3>"+menu[i].area+"</h3>");
+                            var $table = document.createElement("table");
+                            var $header = document.createElement("tr");
+                            var $header1 = document.createElement("th");
+                            $header1.setAttribute("width", "40%");
+                            $header1.innerHTML = "Food name";
+                            var $header2 = document.createElement("th");
+                            $header2.innerHTML = "Calories";
+                            var $header3 = document.createElement("th");
+                            $header3.innerHTML = "portion";
+                            $header.appendChild($header1);
+                            $header.appendChild($header2);
+                            $header.appendChild($header3);
+                            $table.appendChild($header);
+                            $table.className = "table";
+                            for (let j=0; j<menu[i].menu.length; j++) { 
+                                let menuItem = menu[i].menu[j];
+                                let $item = document.createElement("tr");
+                                let $name = document.createElement("td");
+                                $name.setAttribute("id", menuItem.recipe);
+                                $name.setAttribute("width", "40%");
+                                $name.innerHTML = menuItem.name;
+                                $item.appendChild($name);
+                                if(menuItem.nutrition != null){
+                                    let $calories = document.createElement("td");
+                                    $calories.innerHTML=menuItem.nutrition.calories + " cals";
+                                    let $portion = document.createElement("td");
+                                    $portion.innerHTML=menuItem.nutrition.portion;
+                                    $item.appendChild($calories);
+                                    $item.appendChild($portion);
+                                }else{
+                                    let $calories = document.createElement("td");
+                                    $calories.innerHTML="--";
+                                    let $portion = document.createElement("td");
+                                    $portion.innerHTML="--";
+                                    $item.appendChild($calories);
+                                    $item.appendChild($portion);
+                                }
+                                $table.appendChild($item);
+                            }
+                            $menu.append($table);
+                        }
+                    });
+                });
+            });
+        </script>
 </body>
 
 </html>

@@ -231,18 +231,28 @@ app.get('/todays_menu', (req, res) => {
   // 51 --> 251
   // 16 --> South Campus Diner
   // Breakfast, Lunch, or Dinner
+  /*
+  let locCode = req.query.location_id;
+  let mealName = req.query.meal_name;
+  if(locCode == null) {
+     locCode = "04"; 
+  }
+  if(mealName == null) {
+      mealName = "Lunch";
+  }
+  */
   checkPermissionsWithCallback(req, res, (params) => {
-    var locCode = "04";
-    var url = `https://umddiningapi.pesce.host/get_full_menu.json?date=${getTodaysDate()}&location_id=${locCode}&meal_name=Lunch`;
+    /*var url = `https://umddiningapi.pesce.host/get_full_menu.json?date=${getTodaysDate()}&location_id=${locCode}&meal_name=${mealName}`;
     request(url, function(err, result, body) {
       if (!err && res.statusCode == 200) {
-        console.log(body);
         params.menu = JSON.parse(body);
         res.render('full_menu.ejs', params);
       } else {
         console.log(err);
       }
     })
+  */
+      res.render('full_menu.ejs', params);
   }, true);
 });
 
