@@ -16,6 +16,21 @@ module.exports.create = (req, res) => {
 		});
 };
 
+module.exports.createManual = (req, res) => {
+	req.body.user = req.session.cas_username;
+	req.body.namee = req.body['food-name'];
+	req.body['servings-quantity'] = req.body['food-quantity'];
+	req.body.measurement = req.body['food-measurement'];
+	req.body.calories = req.body['food-calories'];
+
+	recordsService.createRecord(req.body)
+		.then((result) => {
+			res.status(200).json(result);
+		}, (err) => {
+			res.status(400).json(err);
+		});
+};
+
 module.exports.update = (req, res) => {
 	recordsService.updateRecord(req.body.oldRecord, req.body.newRecord)
 		.then((result) => {

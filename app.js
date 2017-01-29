@@ -248,9 +248,21 @@ app.get('/full_menu', (req, res) => {
   }, true);
 });
 
+app.get('/new_food_manual', (req, res) => {
+	checkPermissionsWithCallback(req, res, (params) => {
+		res.render('food_insert.ejs', params);
+	}, true);
+});
+
 app.post('/new_food', (req, res) => {
   checkPermissionsWithCallback(req, res, (params) => {
     recordsController.create(req, res);
+  }, true);
+});
+
+app.post('/new_food_manual', (req, res) => {
+  checkPermissionsWithCallback(req, res, (params) => {
+    recordsController.createManual(req, res);
   }, true);
 });
 
