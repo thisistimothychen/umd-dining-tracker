@@ -226,20 +226,49 @@ app.get('/fitbitTest', function(req, res) {
   }, true);
 });
 
-//Full Menu
 app.get('/QRscanTest', (req, res) => {
   checkPermissionsWithCallback(req, res, (params) => {
     res.render('qrscantest.ejs', params);
-    // res.sendFile(path.join(__dirname+'/views/qrscantest.html'));
   }, true);
 });
 
+//Full Menu
 app.get('/full_menu', (req, res) => {
+  // 04 --> North Campus Diner
+  // 51 --> 251
+  // 16 --> South Campus Diner
+  // Breakfast, Lunch, or Dinner
   checkPermissionsWithCallback(req, res, (params) => {
-    request(); // TODO later: call get_full_menu
-    res.render('menu.ejs', params);
+    var locCode = "04";
+    var url = `https://umddiningapi.pesce.host/get_full_menu.json?date=${getTodaysDate()}&location_id=${locCode}&meal_name=Lunch`;
+    request(url, function(err, result, body) {
+      if (!err && res.statusCode == 200) {
+        params.menu = JSON.parse(body);
+        console.log(body);
+        res.render('menu.ejs', params);
+      } else {
+        console.log(err);
+      }
+    })
+
+
   }, true);
 });
+
+function getTodaysDate() {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+  if(dd<10) {
+    dd='0'+dd
+  }
+  if(mm<10) {
+    mm='0'+mm
+  }
+  today = mm+'/'+dd+'/'+yyyy;
+  return today;
+}
 
 /**
  * Error Handler.
