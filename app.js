@@ -256,7 +256,7 @@ app.get('/new_food_manual', (req, res) => {
 
 app.post('/new_food', (req, res) => {
   checkPermissionsWithCallback(req, res, (params) => {
-    recordsController.create(req, res);
+    recordsController.create(req, res, params);
   }, true);
 });
 

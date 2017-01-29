@@ -16,7 +16,7 @@ module.exports.create = (req, res) => {
 		});
 };
 
-module.exports.createManual = (req, res) => {
+module.exports.createManual = (req, res, params) => {
 	req.body.user = req.session.cas_username;
 	req.body.namee = req.body['food-name'];
 	req.body['servings-quantity'] = req.body['food-quantity'];
@@ -25,7 +25,8 @@ module.exports.createManual = (req, res) => {
 
 	recordsService.createRecord(req.body)
 		.then((result) => {
-			res.status(200).json(result);
+			res.render('food_insert.ejs', params);
+			// res.status(200).json(result);
 		}, (err) => {
 			res.status(400).json(err);
 		});

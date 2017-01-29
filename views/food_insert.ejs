@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% var username = username; var user = user; %>
+  <% include ./partials/head %>
+  <% var username = username; var user = user; %>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <% include ./partials/flash %>
+      <% include ./partials/header %>
+    </header>
+
+    <main>
+      <div class="jumbotron">
+        <h1>Manual Entry</h1>
+
+        <form class="form-horizontal" action="/new_food_manual" method="POST">
+          <fieldset>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="food-name">Food Item</label>
+              <div class="col-md-4">
+              <input id="food-name" name="food-name" type="text" placeholder="" class="form-control input-md" required="">
+
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="food-quantity">Quantity consumed</label>
+              <div class="col-md-4">
+              <input id="food-quantity" name="food-quantity" type="text" placeholder="" class="form-control input-md" required="">
+
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="food-measurement">Measurement</label>
+              <div class="col-md-4">
+              <input id="food-measurement" name="food-measurement" type="text" placeholder="oz, each, slice..." class="form-control input-md" required="">
+
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="food-calories">Calories</label>
+              <div class="col-md-4">
+              <input id="food-calories" name="food-calories" type="text" placeholder="" class="form-control input-md" required="">
+              <span class="help-block">Total amount of calories consumed</span>
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <div class="col-md-4 col-md-offset-4">
+                <button id="submit" name="submit" class="btn btn-default">Gobble Gobble</button>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+
+      </div>
+    </main>
+  </div>
+
+  <% include ./partials/footer %>
+
+</body>
+</html>
