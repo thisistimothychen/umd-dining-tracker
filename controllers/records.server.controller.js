@@ -7,6 +7,7 @@ let path = require('path'),
 	Record = require(path.resolve('./models/Record'));
 
 module.exports.create = (req, res) => {
+	req.body.user = req.session.cas_username;
 	recordsService.createRecord(req.body)
 		.then((result) => {
 			res.status(200).json(result);

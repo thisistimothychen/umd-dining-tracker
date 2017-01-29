@@ -26,6 +26,44 @@
 				<div class="well" id="result-pane">
 					<h2 id="scanned-item"></h2>
 					<table class="table" id="scanned-item-nutrition"></table>
+					<h4 id="question-ask">How much are you going to eat?</h4>
+					<form class="form-horizontal" id="form-in" method="POST" action="/new_food">
+						<fieldset>
+
+							<!-- Select Basic -->
+							<div class="form-group">
+								<label class="control-label" for="servings-quantity">How many servings do you want?</label>
+
+								<div class="col-md-8">
+									<div width="50px">
+										<select id="servings-quantity" name="servings-quantity" class="form-control">
+											<option value="0.5">0.5</option>
+											<option value="1.0">1.0</option>
+											<option value="1.5">1.5</option>
+											<option value="2.0">2.0</option>
+											<option value="2.5">2.5</option>
+											<option value="3.0">3.0</option>
+											<option value="3.5">3.5</option>
+											<option value="4.0">4.0</option>
+											<option value="4.5">4.5</option>
+											<option value="5.0">5.0</option>
+										</select>
+									</div>
+								</div>
+
+								<input type="hidden" name="food-id" id="food-id"></input>
+								<input type="hidden" name="measurement" id="measurement"></input>
+								<input type="hidden" name="calories" id="calories"></input>
+								<input type="hidden" name="namee" id="namee"></input>
+
+								<div class="col-md-4">
+									<button id="submit-button" name="submit-button" class="btn btn-primary">Go</button>
+								</div>
+							</div>
+
+						</fieldset>
+					</form>
+
 				</div>
 
 			</div>
@@ -38,33 +76,49 @@
 
 	<script>
 		$(document).ready(function(){
-			$('#reader').html5_qrcode(function(data){
-//					$('#reader').html5_qrcode_stop();
-//					$('#qr-data').text(data);
-					$.get(`http://10.104.139.36:8080/get_nutrition.json?recipe=${data}`, (data, err) => {
 
-						$('#scanned-item').text(data.name);
-						let tableInfo =
-							`<h5>Serving size: ${data.portion}</h5>
-							<table class="table">
-								<tr><td>Calories: ${data.calories}</td></tr>
-								<tr><td>Total fat: ${data.totalfat}</td></tr>
-								<tr><td>Total carbohydrates: ${data.carb}</td></tr>
-								<tr><td>Cholesterol: ${data.cholesterol}</td></tr>
-								<tr><td>Protein: ${data.protein}</td></tr>
-								<tr><td>Sodium: ${data.sodium}</td></tr>
-								<tr><td>Allergens: ${data.allergens}</td></tr>
-							</table>`;
+			$('#question-ask').hide();
+			$('#form-in').hide();
+			$('#reader').html5_qrcode(function(data){
+				$('#food-id').val(data);
+
+				$.get(`https://umddiningapi.pesce.host/get_nutrition.json?recipe=${data}`, (data, err) => {
+
+
+					if (data == null) {
+						let tableInfo = `<h5>Nutrition data not available.</h5>`;
 						$('#scanned-item-nutrition').html(tableInfo);
-					});
-				},
-				function(error){
-					console.log(error);
-				}, function(videoError){
-					console.log(videoError);
-			}
-			);
-		});
+						return;
+					}
+
+					$('#measurement').val(data.portion.split(' ')[1]);
+					$('#calories').val(data.calories);
+					$('#namee').val(data.name);
+					$('#scanned-item').text(data.name);
+
+					let tableInfo =
+						`<h5>Serving size: ${data.portion}</h5>
+						<table class="table">
+							<tr><td>Calories: ${data.calories}</td></tr>
+							<tr><td>Total fat: ${data.totalfat}</td></tr>
+							<tr><td>Total carbohydrates: ${data.carb}</td></tr>
+							<tr><td>Cholesterol: ${data.cholesterol}</td></tr>
+							<tr><td>Protein: ${data.protein}</td></tr>
+							<tr><td>Sodium: ${data.sodium}</td></tr>
+							<tr><td><b>Allergens: ${data.allergens}</b></td></tr>
+						</table>`;
+					$('#scanned-item-nutrition').html(tableInfo);
+//						$('#question-ask').show();
+					$('#form-in').show();
+				});
+			},
+			function(error){
+				console.log(error);
+			}, function(videoError){
+				console.log(videoError);
+		}
+		);
+	});
 	</script>
 
 </body>

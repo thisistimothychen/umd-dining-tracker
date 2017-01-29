@@ -4,24 +4,53 @@ let
 	_ = require('lodash'),
 	path = require('path'),
 	q = require('q'),
+	request = require('request'),
 
 	Record = require(path.resolve('./models/Record'));
 
 module.exports = function() {
 
 	function createRecord(recordInfo) {
-		// Create the new tag model
-		let newRecord = new Record(recordInfo);
+		let newRecord = new Record({});
 
 		// Write the auto-generated metadata
 		newRecord.created = Date.now();
 		newRecord.updated = Date.now();
+		newRecord.user = recordInfo.user;
 
-		return newRecord.save().then(() => {
-			return searchRecords({_id: newRecord._id});
-		}).then((result) => {
-			return q(result.elements[0]);
-		});
+		let start = new Date();
+		start.setHours(0,0,0,0);
+
+		let end = new Date();
+		end.setHours(23,59,59,999);
+
+		console.log(recordInfo.user);
+		return Record.findOne({user: recordInfo.user, date: {$gte: start, $lt: end}}).exec()
+			.then((result) => {
+				console.log(result);
+				if (result == null) {
+					newRecord.food = [];
+
+					newRecord.food.push({
+						name: recordInfo.namee,
+						quantity: recordInfo['servings-quantity'],
+						measurement: recordInfo.measurement,
+						calories: parseFloat(recordInfo['servings-quantity']) * recordInfo.calories
+					});
+
+					return newRecord.save();
+				}
+				else {
+					result.food.push({
+						name: recordInfo.namee,
+						quantity: recordInfo['servings-quantity'],
+						measurement: recordInfo.measurement,
+						calories: parseFloat(recordInfo['servings-quantity']) * recordInfo.calories
+					});
+
+					return result.save();
+				}
+			});
 	}
 
 	function updateRecord(record, newRecord) {

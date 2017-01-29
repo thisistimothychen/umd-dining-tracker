@@ -49,6 +49,7 @@ const contactController = require('./controllers/contact');
 const cas_loginController = require('./controllers/cas_login');
 const userProfileController = require('./controllers/users.profile.server.controller');
 const fitbitController = require('./controllers/fitbit.server.controller');
+const recordsController = require('./controllers/records.server.controller');
 
 /**
  * API keys and Passport configuration.
@@ -238,6 +239,12 @@ app.get('/full_menu', (req, res) => {
   checkPermissionsWithCallback(req, res, (params) => {
     request(); // TODO later: call get_full_menu
     res.render('menu.ejs', params);
+  }, true);
+});
+
+app.post('/new_food', (req, res) => {
+  checkPermissionsWithCallback(req, res, (params) => {
+    recordsController.create(req, res);
   }, true);
 });
 
