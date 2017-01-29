@@ -137,15 +137,15 @@ var moment = require('moment');
 moment().format();
 
 // set up a route to redirect http to https
-// app.get('*',function(req,res,next) {
-//   let link = '' + req.headers.referer;
-//   if (app.get('env') == "development" || link.split(':')[0] == "https") {
-//     console.log("continue to page");
-//     return next();
-//   } else {
-//     res.redirect("https://" + req.headers.host + req.url);
-//   }
-// });
+app.get('*',function(req,res,next) {
+  let link = '' + req.headers.referer;
+  if (app.get('env') == "development" || link.split(':')[0] == "https") {
+    console.log("continue to page");
+    return next();
+  } else {
+    res.redirect("https://" + req.headers.host + req.url);
+  }
+});
 
 var favicon = require('serve-favicon');
 app.use(favicon(__dirname + '/public/favicon.png'));
