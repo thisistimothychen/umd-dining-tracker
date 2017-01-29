@@ -4,6 +4,14 @@
 	<% var username = username; var user = user; %>
 	<% include ./partials/head %>
 	<script src="/js/qrScanner.js"></script>
+	<style>
+		@media(max-width:500px) {
+			#reader-jumbotron {
+				padding:0;
+				background-color:white;
+			}
+		}
+	</style>
 </head>
 <body>
 	<div class="container">
@@ -16,10 +24,8 @@
 		<main>
 			<div class="row">
 				<div class="col-sm-8">
-					<div class="jumbotron">
-
-						<div id="reader" style="width:500px;height:450px;margin:auto;"></div>
-
+					<div id="reader-jumbotron" class="jumbotron">
+						<div id="reader" style="max-width:80vw;width:500px;height:450px;margin:auto;"></div>
 					</div><!-- Jumbotron -->
 				</div><!-- col-sm-8 -->
 				<div class="col-sm-4">
