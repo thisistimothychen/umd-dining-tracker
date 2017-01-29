@@ -5,30 +5,35 @@
 	<% include ./partials/head %>
 	<script src="/js/qrScanner.js"></script>
 </head>
-<body>
-	<div class="container">
+<body class="container">
 
-		<header>
-			<% include ./partials/flash %>
-			<% include ./partials/header %>
-		</header>
+	<header>
+		<% include ./partials/flash %>
+		<% include ./partials/header %>
+	</header>
 
-		<main>
-			<div class="row">
-				<div class="col-sm-8">
-					<div class="jumbotron">
+	<main>
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="jumbotron">
 
-						<div id="reader" style="width:500px;height:450px;"></div>
+					<div id="reader" style="width:500px;height:450px;"></div>
 
-					</div><!-- Jumbotron -->
-				</div><!-- col-sm-8 -->
-				<div class="col-sm-4">
+				</div><!-- Jumbotron -->
+			</div><!-- col-sm-8 -->
+			<div class="col-sm-4">
 
-					<div class="well" id="result-pane">
+				<div class="well" id="result-pane">
+
+					<h3 style="color:green" id="success-text"></h3>
+
+					<div id="result-pane2">
+
+
 						<h2 id="scanned-item"></h2>
 						<table class="table" id="scanned-item-nutrition"></table>
 						<h4 id="question-ask">How much are you going to eat?</h4>
-						<form class="form-horizontal" id="form-in" method="POST" action="/new_food">
+						<form class="form-horizontal" id="form-in" method="POST" action="/new_food" target="hiddenFrame">
 							<fieldset>
 
 								<!-- Select Basic -->
@@ -63,7 +68,7 @@
 									<input type="hidden" name="namee" id="namee"></input>
 
 									<div class="col-md-4">
-										<button id="submit-button" name="submit-button" class="btn btn-primary">Go</button>
+										<button id="submit-button" name="submit-button" class="btn btn-primary" onclick="mark()">Go</button>
 									</div>
 								</div>
 
@@ -73,57 +78,69 @@
 					</div>
 
 				</div>
+
 			</div>
-		</main>
-	</div>
+		</div>
+	</main>
 
-	<% include ./partials/footer %>
+	<footer>
+		<% include ./partials/footer %>
+	</footer>
 
-		<script>
-			$(document).ready(function(){
+	<script>
+		function mark() {
+			$('#result-pane2').hide();
+			$('#success-text').show();
+			$('#success-text').text('Success!');
+		}
 
-				$('#question-ask').hide();
-				$('#form-in').hide();
-				$('#reader').html5_qrcode(function(data) {
+		$(document).ready(function(){
 
-					$('#food-id').val(data);
+			$('#question-ask').hide();
+			$('#form-in').hide();
+			$('#reader').html5_qrcode(function(data) {
+				$('#success-text').hide();
+				$('#result-pane2').show();
+				$('#food-id').val(data);
 
-					$.get(`https://umddiningapi.pesce.host/get_nutrition.json?recipe=${data}`, (data, err) => {
+				$.get(`https://umddiningapi.pesce.host/get_nutrition.json?recipe=${data}`, (data, err) => {
 
-						if (data == null) {
-							let tableInfo = `<h5>Nutrition data not available.</h5>`;
-							$('#scanned-item-nutrition').html(tableInfo);
-							return;
-						}
-
-						$('#measurement').val(data.portion.split(' ')[1]);
-						$('#calories').val(data.calories);
-						$('#namee').val(data.name);
-						$('#scanned-item').text(data.name);
-
-						let tableInfo =
-							`<h5>Serving size: ${data.portion}</h5>
-							<table class="table">
-								<tr><td>Calories: ${data.calories}</td></tr>
-								<tr><td>Total fat: ${data.totalfat}</td></tr>
-								<tr><td>Total carbohydrates: ${data.carb}</td></tr>
-								<tr><td>Cholesterol: ${data.cholesterol}</td></tr>
-								<tr><td>Protein: ${data.protein}</td></tr>
-								<tr><td>Sodium: ${data.sodium}</td></tr>
-								<tr><td><b>Allergens: ${data.allergens}</b></td></tr>
-							</table>`;
+					if (data == null) {
+						let tableInfo = `<h5>Nutrition data not available.</h5>`;
 						$('#scanned-item-nutrition').html(tableInfo);
-	//						$('#question-ask').show();
-						$('#form-in').show();
-					});
-				},
-				function(error){
-					console.log(error);
-				}, function(videoError){
-					console.log(videoError);
-			}
-			);
-		});
-		</script>
+						return;
+					}
+
+					$('#measurement').val(data.portion.split(' ')[1]);
+					$('#calories').val(data.calories);
+					$('#namee').val(data.name);
+					$('#scanned-item').text(data.name);
+
+					let tableInfo =
+						`<h5>Serving size: ${data.portion}</h5>
+						<table class="table">
+							<tr><td>Calories: ${data.calories}</td></tr>
+							<tr><td>Total fat: ${data.totalfat}</td></tr>
+							<tr><td>Total carbohydrates: ${data.carb}</td></tr>
+							<tr><td>Cholesterol: ${data.cholesterol}</td></tr>
+							<tr><td>Protein: ${data.protein}</td></tr>
+							<tr><td>Sodium: ${data.sodium}</td></tr>
+							<tr><td><b>Allergens: ${data.allergens}</b></td></tr>
+						</table>`;
+					$('#scanned-item-nutrition').html(tableInfo);
+//						$('#question-ask').show();
+					$('#form-in').show();
+				});
+			},
+			function(error){
+				console.log(error);
+			}, function(videoError){
+				console.log(videoError);
+		}
+		);
+	});
+	</script>
+	<iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
+
 </body>
 </html>

@@ -254,6 +254,12 @@ app.post('/new_food', (req, res) => {
   }, true);
 });
 
+app.get('/day_view', (req, res) => {
+  checkPermissionsWithCallback(req, res, (params) => {
+    res.render('day.ejs', params);
+  }, true);
+});
+
 function getTodaysDate() {
   var today = new Date();
   var dd = today.getDate();
