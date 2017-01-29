@@ -4,34 +4,33 @@
 	<% var username = username; var user = user; %>
 	<% include ./partials/head %>
 </head>
-<body class="container">
+<body>
+	<div class="container">
+		<header>
+			<% include ./partials/flash %>
+			<% include ./partials/header %>
+		</header>
 
-	<header>
-		<% include ./partials/flash %>
-		<% include ./partials/header %>
-	</header>
+		<main>
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="jumbotron">
+						<h1>UMD Dining Services</h1>
 
-	<main>
-		<div class="row">
-			<div class="col-sm-8">
-				<div class="jumbotron">
-					<h1>UMD Dining Services</h1>
+					</div><!-- Jumbotron -->
+				</div><!-- col-sm-8 -->
+				<div class="col-sm-4">
 
-				</div><!-- Jumbotron -->
-			</div><!-- col-sm-8 -->
-			<div class="col-sm-4">
+					<div class="well">
+						<h3>This section used for calendar view. To be programmed later.</h3>
+					</div>
 
-				<div class="well">
-					<h3>This section used for calendar view. To be programmed later.</h3>
 				</div>
-
 			</div>
-		</div>
-	</main>
+		</main>
+	</div>
 
-	<footer>
-		<% include ./partials/footer %>
-	</footer>
+	<% include ./partials/footer %>
 
 </body>
 </html>

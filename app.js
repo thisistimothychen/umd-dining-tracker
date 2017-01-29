@@ -247,6 +247,7 @@ app.get('/full_menu', (req, res) => {
   }, true);
 });
 
+
 //Search
 app.get('/search', (req, res) => {
   // 04 --> North Campus Diner
@@ -268,11 +269,28 @@ app.get('/search', (req, res) => {
 
 
   }, true);
+
+app.get('/new_food_manual', (req, res) => {
+	checkPermissionsWithCallback(req, res, (params) => {
+		res.render('food_insert.ejs', params);
+	}, true);
 });
 
 app.post('/new_food', (req, res) => {
   checkPermissionsWithCallback(req, res, (params) => {
-    recordsController.create(req, res);
+    recordsController.create(req, res, params);
+  }, true);
+});
+
+app.post('/new_food_manual', (req, res) => {
+  checkPermissionsWithCallback(req, res, (params) => {
+    recordsController.createManual(req, res);
+  }, true);
+});
+
+app.get('/day_view', (req, res) => {
+  checkPermissionsWithCallback(req, res, (params) => {
+    res.render('day.ejs', params);
   }, true);
 });
 

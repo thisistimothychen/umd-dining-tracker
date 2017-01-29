@@ -3,13 +3,13 @@
 
 <head>
 	<% var username = username; var user = user; var menu = menu; %>
-		<% include ./partials/head %>
+	<% include ./partials/head %>
 </head>
 
 <body class="container">
 	<header>
 		<% include ./partials/flash %>
-			<% include ./partials/header %>
+		<% include ./partials/header %>
 	</header>
 
 	<main>
@@ -26,25 +26,19 @@
 							<%= menu[i].name %>
 						</td>
 						<% if (menu[i].nutrition != null) { %>
-							<td>
-								<%= menu[i].nutrition.calories %> cals</td>
-							<td>
-								<%= menu[i].nutrition.portion %>
-							</td>
-							<% } else { %>
-								<td>--</td>
-								<td>--</td>
-								<% } %>
+							<td><%= menu[i].nutrition.calories %> cals</td>
+							<td><%= menu[i].nutrition.portion %></td>
+						<% } else { %>
+							<td>--</td>
+							<td>--</td>
+						<% } %>
 					</tr>
-					<% } %>
+				<% } %>
 			</table>
 		</div>
 	</main>
 
-	<footer>
-		<% include ./partials/footer %>
-	</footer>
-
+	<% include ./partials/footer %>
 </body>
 
 </html>
