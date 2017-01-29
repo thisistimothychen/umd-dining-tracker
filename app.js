@@ -177,7 +177,7 @@ let checkPermissionsWithCallback = function(req, res, callback, needLogin) {
     if (req.session.cas_username == null) {
       // Not logged in
       // Universally accessible page; don't need permissions
-      callback();
+      callback({});
     } else {
       // Logged in
       User.findOne({username: req.session.cas_username}, function(err, user) {
@@ -272,7 +272,7 @@ app.get('/todays_menu', (req, res) => {
     })
   */
       res.render('full_menu.ejs', params);
-  }, true);
+  }, false);
 });
 
 
@@ -294,7 +294,7 @@ app.get('/search', (req, res) => {
         console.log(err);
       }
     })
-  }, true);
+  }, false);
 });
 
 app.get('/new_food_manual', (req, res) => {
