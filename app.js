@@ -34,6 +34,9 @@ require("jsdom").env("", function(err, window) {
     var $ = require("jquery")(window);
 });
 
+
+
+
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
@@ -319,5 +322,6 @@ app.listen(app.get('port'), () => {
   console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env')); 
   console.log('  Press CTRL-C to stop\n');
 });
+
 
 module.exports = app;
