@@ -37,7 +37,7 @@ require("jsdom").env("", function(err, window) {
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
-dotenv.load({ path: '.env' });
+dotenv.load({ path: '.env.example' });
 
 /**
  * Controllers (route handlers).
