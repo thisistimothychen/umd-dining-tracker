@@ -8,23 +8,7 @@ let	path = require('path'),
 
 module.exports.create = function(req, res) {
 	req.body.username = req.session.cas_username;
-    req.body.email = `${req.session.cas_username}@terpmail.umd.edu`;
-
-	if (req.body.class == null)
-		req.body.class = 'Undefined';
-
-	if (req.body.major == null)
-		req.body.major = 'Undefined';
-
-	if (req.body.roles == null) {
-		req.body.roles = {
-			type: {
-				user: true,
-				admin: false,
-				superuser: false
-			}
-		};
-	}
+  req.body.email = `${req.session.cas_username}@terpmail.umd.edu`;
 
 	usersService.createUser(req.body)
 		.then(function(result) {
@@ -37,22 +21,18 @@ module.exports.create = function(req, res) {
 module.exports.update = function(req, res) {
 	usersService.searchUsers({username: req.session.cas_username})
 		.then(function(oldUser) {
+			console.log(req.body);
+
 			return usersService.updateUser(oldUser.elements[0], {
 				firstName: req.body.firstName,
 				lastName: req.body.lastName,
 				username: req.session.cas_username,
 				email: req.body.email,
-				roles: {
-					type: {
-						user: true,
-						admin: false,
-						superuser: false
-					}
-				},
-				// resume:
-				major: 'Undefined',
-				class: 'Undefined'
-			  });
+				age: req.body.age,
+				gender: req.body.gender,
+				weight: req.body.weight,
+				height: req.body.height
+		  });
 		})
 		.then(function(result) {
 			// User has been updated
