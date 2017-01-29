@@ -220,11 +220,9 @@ app.post('/profile', function(req, res) {
 });
 
 // fitbit test page
-
 app.get('/fitbitTest', function(req, res) {
   checkPermissionsWithCallback(req, res, function(params) {
     fitbitController.fitbit(req, res, params);
-
   }, true);
 });
 
