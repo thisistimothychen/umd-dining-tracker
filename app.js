@@ -48,7 +48,6 @@ const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const cas_loginController = require('./controllers/cas_login');
 const userProfileController = require('./controllers/users.profile.server.controller');
-const fitbitController = require('./controllers/fitbit.server.controller');
 const recordsController = require('./controllers/records.server.controller');
 
 /**
@@ -217,13 +216,6 @@ app.post('/profile', function(req, res) {
   checkPermissionsWithCallback(req, res, function(params) {
     console.log("Updating user " + req.session.cas_username);
     userProfileController.update(req, res);
-  }, true);
-});
-
-// fitbit test page
-app.get('/fitbitTest', function(req, res) {
-  checkPermissionsWithCallback(req, res, function(params) {
-    fitbitController.fitbit(req, res, params);
   }, true);
 });
 

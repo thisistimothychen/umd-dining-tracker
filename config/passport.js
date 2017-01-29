@@ -12,6 +12,7 @@ const OpenIDStrategy = require('passport-openid').Strategy;
 const OAuthStrategy = require('passport-oauth').OAuthStrategy;
 const OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 
+
 const User = require('../models/User');
 
 passport.serializeUser((user, done) => {
@@ -506,6 +507,7 @@ passport.use('pinterest', new OAuth2Strategy({
     });
   }
 ));
+
 
 /**
  * Login Required middleware.
