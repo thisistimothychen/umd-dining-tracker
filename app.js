@@ -138,7 +138,8 @@ moment().format();
 
 // set up a route to redirect http to https
 app.get('*',function(req,res,next) {
-  if (app.get('env') == "development") {
+  let link = '' + req.headers.referer;
+  if (app.get('env') == "development" || link.split(':')[0] == "https") {
     return next();
   } else {
     res.redirect("https://" + req.headers.host + req.url);
