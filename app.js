@@ -292,6 +292,12 @@ app.get('/data', (req, res) => {
   }, true);
 });
 
+app.post('/records', (req, res) => {
+  checkPermissionsWithCallback(req, res, (params) => {
+    recordsController.search(req, res);
+  }, true);
+});
+
 function getTodaysDate() {
   var today = new Date();
   var dd = today.getDate();
