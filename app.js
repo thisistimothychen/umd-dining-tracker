@@ -219,9 +219,9 @@ app.post('/profile', function(req, res) {
   }, true);
 });
 
-app.get('/QRscanTest', (req, res) => {
+app.get('/qr_reader', (req, res) => {
   checkPermissionsWithCallback(req, res, (params) => {
-    res.render('qrscantest.ejs', params);
+    res.render('qr_reader.ejs', params);
   }, true);
 });
 
@@ -236,8 +236,9 @@ app.get('/full_menu', (req, res) => {
     var url = `https://umddiningapi.pesce.host/get_full_menu.json?date=${getTodaysDate()}&location_id=${locCode}&meal_name=Lunch`;
     request(url, function(err, result, body) {
       if (!err && res.statusCode == 200) {
+        console.log(body);
         params.menu = JSON.parse(body);
-        res.render('menu.ejs', params);
+        res.render('full_menu.ejs', params);
       } else {
         console.log(err);
       }
@@ -285,9 +286,9 @@ app.post('/new_food_manual', (req, res) => {
   }, true);
 });
 
-app.get('/day_view', (req, res) => {
+app.get('/data', (req, res) => {
   checkPermissionsWithCallback(req, res, (params) => {
-    res.render('day.ejs', params);
+    res.render('data.ejs', params);
   }, true);
 });
 

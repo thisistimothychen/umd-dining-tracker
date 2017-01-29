@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<% var username = username; var user = user; var menu = menu; %>
+	<% include ./partials/head %>
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			<% include ./partials/flash %>
+			<% include ./partials/header %>
+		</header>
+
+		<main>
+			<div class="jumbotron">
+				<% for (let i=0; i<menu.length; i++) { %>
+					<h3><%= menu[i].area %></h3>
+
+					<table class="table">
+						<tr>
+							<th width="40%">Food name</th>
+							<th>Calories</th>
+							<th>Portion</th>
+						</tr>
+							<% for (let j=0; j<menu[i].menu.length; j++) { %>
+								<% let menuItem = menu[i].menu[j] %>
+								<tr>
+									<td id="<%= menuItem.recipe %>" width="40%">
+										<%= menuItem.name %>
+									</td>
+									<% if (menuItem.nutrition != null) { %>
+										<td><%= menuItem.nutrition.calories %> cals</td>
+										<td><%= menuItem.nutrition.portion %></td>
+									<% } else { %>
+										<td>--</td>
+										<td>--</td>
+									<% } %>
+								</tr>
+							<% } %>
+					</table>
+				<% } %>
+			</div>
+		</main>
+
+	</div>
+	<% include ./partials/footer %>
+</body>
+
+</html>
