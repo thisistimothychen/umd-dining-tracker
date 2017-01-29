@@ -4,20 +4,19 @@
     <% var username = username; var user = user; %>
     <% include ./partials/head %>
 </head>
-<body class="container">
+<body>
+  <div class="container">
+    <header>
+        <% include ./partials/flash %>
+        <% include ./partials/header %>
+    </header>
 
-<header>
-    <% include ./partials/flash %>
-    <% include ./partials/header %>
-</header>
+    <main>
 
-<main>
+    </main>
+  </div>
 
-</main>
-
-<footer>
-    <% include ./partials/footer %>
-</footer>
+  <% include ./partials/footer %>
 
 </body>
 </html>
