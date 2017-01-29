@@ -5,83 +5,85 @@
 	<% include ./partials/head %>
 	<script src="/js/qrScanner.js"></script>
 </head>
-<body class="container">
+<body>
+	<div class="container">
 
-	<header>
-		<% include ./partials/flash %>
-		<% include ./partials/header %>
-	</header>
+		<header>
+			<% include ./partials/flash %>
+			<% include ./partials/header %>
+		</header>
 
-	<main>
-		<div class="row">
-			<div class="col-sm-8">
-				<div class="jumbotron">
+		<main>
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="jumbotron">
 
-					<div id="reader" style="width:500px;height:450px;"></div>
+						<div id="reader" style="width:500px;height:450px;"></div>
 
-				</div><!-- Jumbotron -->
-			</div><!-- col-sm-8 -->
-			<div class="col-sm-4">
+					</div><!-- Jumbotron -->
+				</div><!-- col-sm-8 -->
+				<div class="col-sm-4">
 
-				<div class="well" id="result-pane">
+					<div class="well" id="result-pane">
 
-					<h3 style="color:green" id="success-text"></h3>
+						<h3 style="color:green" id="success-text"></h3>
 
-					<div id="result-pane2">
+						<div id="result-pane2">
 
 
-						<h2 id="scanned-item"></h2>
-						<table class="table" id="scanned-item-nutrition"></table>
-						<h4 id="question-ask">How much are you going to eat?</h4>
-						<form class="form-horizontal" id="form-in" method="POST" action="/new_food" target="hiddenFrame">
-							<fieldset>
+							<h2 id="scanned-item"></h2>
+							<table class="table" id="scanned-item-nutrition"></table>
+							<h4 id="question-ask">How much are you going to eat?</h4>
+							<form class="form-horizontal" id="form-in" method="POST" action="/new_food" target="hiddenFrame">
+								<fieldset>
 
-								<!-- Select Basic -->
-								<div class="form-group">
-									<label class="control-label" for="servings-quantity">How many servings do you want?</label>
+									<!-- Select Basic -->
+									<div class="form-group">
+										<label class="control-label" for="servings-quantity">How many servings do you want?</label>
 
-									<div class="col-md-8">
-										<div width="50px">
-											<select id="servings-quantity" name="servings-quantity" class="form-control">
-												<option value="0.5">0.5</option>
-												<option value="1.0">1.0</option>
-												<option value="1.5">1.5</option>
-												<option value="2.0">2.0</option>
-												<option value="2.5">2.5</option>
-												<option value="3.0">3.0</option>
-												<option value="3.5">3.5</option>
-												<option value="4.0">4.0</option>
-												<option value="4.5">4.5</option>
-												<option value="5.0">5.0</option>
-												<option value="6.0">6.0</option>
-												<option value="7.0">7.0</option>
-												<option value="8.0">8.0</option>
-												<option value="9.0">9.0</option>
-												<option value="10.0">10.0</option>
-											</select>
+										<div class="col-md-8">
+											<div width="50px">
+												<select id="servings-quantity" name="servings-quantity" class="form-control">
+													<option value="0.5">0.5</option>
+													<option value="1.0">1.0</option>
+													<option value="1.5">1.5</option>
+													<option value="2.0">2.0</option>
+													<option value="2.5">2.5</option>
+													<option value="3.0">3.0</option>
+													<option value="3.5">3.5</option>
+													<option value="4.0">4.0</option>
+													<option value="4.5">4.5</option>
+													<option value="5.0">5.0</option>
+													<option value="6.0">6.0</option>
+													<option value="7.0">7.0</option>
+													<option value="8.0">8.0</option>
+													<option value="9.0">9.0</option>
+													<option value="10.0">10.0</option>
+												</select>
+											</div>
+										</div>
+
+										<input type="hidden" name="food-id" id="food-id"></input>
+										<input type="hidden" name="measurement" id="measurement"></input>
+										<input type="hidden" name="calories" id="calories"></input>
+										<input type="hidden" name="namee" id="namee"></input>
+
+										<div class="col-md-4">
+											<button id="submit-button" name="submit-button" class="btn btn-primary" onclick="mark()">Go</button>
 										</div>
 									</div>
 
-									<input type="hidden" name="food-id" id="food-id"></input>
-									<input type="hidden" name="measurement" id="measurement"></input>
-									<input type="hidden" name="calories" id="calories"></input>
-									<input type="hidden" name="namee" id="namee"></input>
+								</fieldset>
+							</form>
 
-									<div class="col-md-4">
-										<button id="submit-button" name="submit-button" class="btn btn-primary" onclick="mark()">Go</button>
-									</div>
-								</div>
-
-							</fieldset>
-						</form>
+						</div>
 
 					</div>
 
 				</div>
-
 			</div>
-		</div>
-	</main>
+		</main>
+	</div>
 
 	<footer>
 		<% include ./partials/footer %>
