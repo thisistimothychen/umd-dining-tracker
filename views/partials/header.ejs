@@ -15,7 +15,6 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
 							<% if (username != null || user != null) { %>
-								<li><a href="/profile">Profile</a></li>
 								<li><a href="/qr_reader">QR Reader</a></li>
 								<li><a href="/full_menu">Today's Menu</a></li>
 								<li><a href="/search">Search Menu</a></li>
@@ -24,6 +23,7 @@
 						</ul>
 
 						<ul class="nav navbar-nav" style="float: right">
+							<li><a href="/profile">Profile</a></li>
 								<% if (username != null || user != null) { %>
 									<li class="pull-right"><a href="/logout" class="navbar-nav pull-right">Logout</a></li>
 								<% } else { %>
