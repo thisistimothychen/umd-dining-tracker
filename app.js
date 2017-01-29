@@ -218,7 +218,8 @@ app.get('/fitbitTest', function(req, res) {
 
 app.get('/QRscanTest', (req, res) => {
   checkPermissionsWithCallback(req, res, (params) => {
-    res.sendFile(path.join(__dirname+'/views/qrscantest.html'));
+    res.render('qrscantest.ejs', params);
+    // res.sendFile(path.join(__dirname+'/views/qrscantest.html'));
   }, true);
 });
 
