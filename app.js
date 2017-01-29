@@ -140,6 +140,7 @@ moment().format();
 app.get('*',function(req,res,next) {
   let link = '' + req.headers.referer;
   if (app.get('env') == "development" || link.split(':')[0] == "https") {
+    console.log("continue to page");
     return next();
   } else {
     res.redirect("https://" + req.headers.host + req.url);
