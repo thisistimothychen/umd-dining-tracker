@@ -145,6 +145,8 @@ app.get('*',function(req,res,next) {
   }
 });
 
+var favicon = require('serve-favicon');
+app.use(favicon(__dirname + '/public/favicon.png'));
 
 // Initialize database paths
 let User = require(path.resolve('./models/User'));
