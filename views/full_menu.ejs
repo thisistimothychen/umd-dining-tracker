@@ -87,7 +87,9 @@
                 $("#update_menu").click(function() {
                     var $menu = $("#menu");
                     $menu.html('Loading...');
-                    $.get("https://umddiningapi.pesce.host/get_full_menu.json?date="+"01/29/2017"+"&location_id="+location_id+"&meal_name="+meal, function(menu, status){
+                    var d = new Date();
+                    var date = (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear();
+                    $.get("https://umddiningapi.pesce.host/get_full_menu.json?date="+date+"&location_id="+location_id+"&meal_name="+meal, function(menu, status){
                         if(menu.length == 0) {
                             $menu.html('This location is not open at this time.');
                             return;
