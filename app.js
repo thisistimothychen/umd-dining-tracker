@@ -263,7 +263,7 @@ app.get('/todays_menu', (req, res) => {
   }
   */
   checkPermissionsWithCallback(req, res, (params) => {
-    /*var url = `https://umddiningapi.pesce.host/get_full_menu.json?date=${getTodaysDate()}&location_id=${locCode}&meal_name=${mealName}`;
+    /*var url = `https://umd-dining-api.herokuapp.com/get_full_menu.json?date=${getTodaysDate()}&location_id=${locCode}&meal_name=${mealName}`;
     request(url, function(err, result, body) {
       if (!err && res.statusCode == 200) {
         params.menu = JSON.parse(body);
@@ -286,7 +286,7 @@ app.get('/search', (req, res) => {
   // Breakfast, Lunch, or Dinner
   checkPermissionsWithCallback(req, res, (params) => {
     var locCode = "04";
-    var url = `https://umddiningapi.pesce.host/get_all_items.json`;
+    var url = `https://umd-dining-api.herokuapp.com/get_all_items.json`;
     request(url, function(err, result, body) {
       if (!err && res.statusCode == 200) {
         params.menu = JSON.parse(body);

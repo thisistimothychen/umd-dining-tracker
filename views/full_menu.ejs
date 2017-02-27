@@ -87,7 +87,7 @@
                 $("#update_menu").click(function() {
                     var $menu = $("#menu");
                     $menu.html('Loading...');
-                    $.get("https://umddiningapi.pesce.host/get_full_menu.json?date="+"01/29/2017"+"&location_id="+location_id+"&meal_name="+meal, function(menu, status){
+                    $.get("https://umd-dining-api.herokuapp.com/get_full_menu.json?date="+"01/29/2017"+"&location_id="+location_id+"&meal_name="+meal, function(menu, status){
                         if(menu.length == 0) {
                             $menu.html('This location is not open at this time.');
                             return;

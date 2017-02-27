@@ -48,7 +48,7 @@
 
 			function toggleFact(i){
                             if($("#fact"+i).length == 0) {
-                                $.get("https://umddiningapi.pesce.host/get_nutrition.json?recipe="+$("#tr"+i).children("td").first().attr("id"), function(nutrition, err) {
+                                $.get("https://umd-dining-api.herokuapp.com/get_nutrition.json?recipe="+$("#tr"+i).children("td").first().attr("id"), function(nutrition, err) {
                                     var menuItem = "";
                                     if (nutrition != null) {
                                             menuItem = '<tr id="fact' + i + '"> <td style="padding-left:50px">' +

@@ -111,7 +111,7 @@
 				$('#result-pane2').show();
 				$('#food-id').val(data);
 
-				$.get(`https://umddiningapi.pesce.host/get_nutrition.json?recipe=${data}`, (data, err) => {
+				$.get(`https://umd-dining-api.herokuapp.com/get_nutrition.json?recipe=${data}`, (data, err) => {
 
 					if (data == null) {
 						let tableInfo = `<h5>Nutrition data not available.</h5>`;

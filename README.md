@@ -22,3 +22,4 @@ Open two terminal sessions and run `mongod` in one and `node app.js` in another.
   - Nutritional comparison graphs (e.g. for different foods)
 - Health apps/Fitbit integration
 - Meal combinations and suggestions based on what other people get
+- Planning out your meals ahead of time
