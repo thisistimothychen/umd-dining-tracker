@@ -34,9 +34,6 @@ require("jsdom").env("", function(err, window) {
     var $ = require("jquery")(window);
 });
 
-
-
-
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
@@ -79,6 +76,23 @@ mongoose.connection.on('error', () => {
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+};
+app.use(allowCrossDomain);
+
+
 app.use(expressStatusMonitor());
 app.use(compression());
 app.use(logger('dev'));
