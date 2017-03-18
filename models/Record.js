@@ -3,10 +3,10 @@
 const mongoose = require('mongoose');
 const path = require('path');
 
-const schemaService = require(path.resolve('./services/schema.server.service'));
+const schemaService = require(path.resolve(path.join(__dirname, '../services/schema.server.service')));
 const GetterSchema = schemaService.GetterSchema;
 
-const util = require(path.resolve('./services/util.server.service'));
+const util = require(path.resolve(path.join(__dirname, '../services/util.server.service')));
 
 
 /**

@@ -8,7 +8,7 @@ let cas = new CAS({
 });
 
 let path = require('path');
-let User = require(path.resolve('./models/User'));
+let User = require(path.resolve(path.join(__dirname, '../models/User')));
 
 
 exports.cas_login = function(req, res) {

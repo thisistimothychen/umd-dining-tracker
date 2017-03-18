@@ -3,8 +3,8 @@
 let	path = require('path'),
 	q = require('q'),
 
-	usersService = require(path.resolve('./services/users.profile.server.service.js'))(),
-	User = require(path.resolve('./models/User'));
+	usersService = require(path.resolve(path.join(__dirname, '../services/users.profile.server.service.js')))(),
+	User = require(path.resolve(path.join(__dirname, '../models/User')));
 
 module.exports.create = function(req, res) {
 	req.body.username = req.session.cas_username;

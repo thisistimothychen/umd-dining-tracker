@@ -6,7 +6,7 @@ let
 	q = require('q'),
 	request = require('request'),
 
-	Record = require(path.resolve('./models/Record'));
+	Record = require(path.resolve(path.join(__dirname, '../models/Record')));
 
 module.exports = function() {
 

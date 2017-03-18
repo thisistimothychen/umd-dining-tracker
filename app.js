@@ -37,7 +37,7 @@ require("jsdom").env("", function(err, window) {
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
-dotenv.load({ path: '.env.example' });
+dotenv.load({ path: path.join(__dirname, '/.env.example') });
 
 /**
  * Controllers (route handlers).
@@ -165,7 +165,7 @@ var favicon = require('serve-favicon');
 app.use(favicon(__dirname + '/public/favicon.png'));
 
 // Initialize database paths
-let User = require(path.resolve('./models/User'));
+let User = require(path.resolve(path.join(__dirname, '/models/User')));
 
 app.get('/cas_login', cas_loginController.cas_login);
 app.get('/logout', cas_loginController.cas_logout);
